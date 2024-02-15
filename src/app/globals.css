@@ -2,32 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-app-rgb: 244, 245, 247;
+    --color-primary-900: 74, 109, 255;
+    --color-primary-800: 92, 124, 255;
+    --color-primary-700: 110, 138, 255;
+    --color-primary-600: 128, 153, 255;
+    --color-primary-500: 146, 167, 255;
+    --color-primary-400: 164, 182, 255;
+    --color-primary-300: 183, 197, 255;
+    --color-primary-200: 201, 211, 255;
+    --color-primary-100: 219, 226, 255;
+    --color-primary-50: 228, 233, 255;
+    --color-secondary-900: 42, 45, 83;
+    --color-secondary-800: 63, 66, 100;
+    --color-secondary-700: 85, 87, 117;
+    --color-secondary-600: 106, 108, 135;
+    --color-secondary-500: 127, 129, 152;
+    --color-secondary-400: 148, 150, 169;
+    --color-secondary-300: 170, 171, 186;
+    --color-secondary-200: 191, 192, 203;
+    --color-secondary-100: 212, 213, 221;
+    --color-secondary-50: 223, 223, 229;
+    --color-success: 0, 192, 115;
+    --color-warning: 255, 153, 0;
+    --color-error: 255, 71, 87;
+    --color-red-500: 239, 68, 68;
+    --color-red-300: 252, 165, 165;
   }
 }
 
+@layer components{
+  .textField__input{
+    @apply w-full outline-none border px-4 h-12 rounded-xl text-sm text-slate-900 placeholder-slate-900/50
+  }
+
+  .btn{
+    @apply rounded-xl flex items-center justify-center duration-200
+  }
+
+  .btn--primary{
+    @apply w-full disabled:bg-slate-300 disabled:hover:outline-none h-12 bg-primary-900 text-white text-sm font-medium outline outline-transparent hover:outline-primary-200
+  }
+
+  .btn--light{
+    @apply h-12 bg-slate-200 border border-transparent outline outline-transparent hover:outline-secondary-100/20 text-primary-900
+  }
+
+  .btn--iconText{
+    @apply h-12 border border-transparent text-white text-sm gap-2 px-4 bg-primary-700 outline outline-transparent hover:outline-primary-200 duration-200
+  }
+
+  .btn--icon{
+    @apply w-12 h-12 border border-transparent text-white text-sm bg-primary-700 outline outline-transparent hover:outline-primary-200 duration-200
+  }
+}
+
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-iranSansX);
+  min-height: 100vh;
+  user-select: none;
+  background-color: rgb(244, 245, 247);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
