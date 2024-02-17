@@ -5,11 +5,18 @@ import ProductCard from "@/components/ProductCard";
 import ProductCardMobile from "@/components/ProductCardMobile";
 import { DownIcon } from "@/common/Icons";
 import { toPersianDigit } from "@/utils/toPersianDigit";
+import { cookies } from "next/headers";
+import { toStringCookies } from "@/utils/toStringCookies";
 
 export const dynamic = "force-dynamic"; // force-dynamic or lazy (lazy is default)
 
 export default async function ProductsPage({searchParams}){
-    const { products } = await getProducts(queryString.stringify(searchParams));
+    const cookieStore = cookies();
+    const strCookies = toStringCookies(cookieStore);
+    const { products } = await getProducts(
+        queryString.stringify(searchParams),
+        strCookies
+    );
     
     return(
         <div className="w-full pb-[128px]">

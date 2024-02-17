@@ -77,9 +77,12 @@ export default function Header() {
 
             <Link href={'/cart'} className="btn btn--light w-12 relative">
               <CartIcon className={'w-6 h-6'}/>
-              <div className="absolute flex items-center justify-center -top-[3px] -right-1 w-4 h-4 text-[10px] rounded-full bg-error text-white">
-                {toPersianDigit(cart ? cart.payDetail.productIds.length : "0")}
-              </div>
+              {
+                cart && cart.payDetail.productIds.length !== 0 &&
+                <div className="absolute flex items-center justify-center -top-[3px] -right-1 w-4 h-4 text-[10px] rounded-full bg-error text-white">
+                  {toPersianDigit(cart ? cart.payDetail.productIds.length : "0")}
+                </div>
+              }
             </Link>
 
             {

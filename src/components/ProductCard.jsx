@@ -11,12 +11,14 @@ import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import ToastError from "@/common/toasts/ToastError";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
+import { useAddToCart } from "@/hooks/useCart";
+import LikeProduct from "./LikeProduct";
 
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, className }) {
     const { data, isPending:isGettingUser } = useGetUser();
     const { user } = data || {};
-    const { isPending, mutateAsync: mutateAddToCart } = useMutation({ mutationFn : addToCart });
+    const { isPending, mutateAsync: mutateAddToCart } = useAddToCart();
     const queryClient = useQueryClient();
 
     const addToCartHandler = async () => {
@@ -36,12 +38,12 @@ export default function ProductCard({ product }) {
     }
 
     const isInCart = () => {
-        const isProduct = user?.cart.products.some((p) => p.productId === product._id);
+        const isProduct = user?.cart?.products.some((p) => p.productId === product._id);
         return isProduct;
      }
 
     return(
-        <div className={`w-full shadow-lg hover:scale-105 duration-200 bg-slate-50 relative rounded-xl overflow-hidden p-6`}>
+        <div className={`w-full ${className} relative shadow-lg hover:scale-105 duration-200 bg-slate-50 reltive rounded-xl overflow-hidden p-6`}>
            <div className={`w-full h-full flex flex-col gap-4`}>
                 
                 {
@@ -51,10 +53,7 @@ export default function ProductCard({ product }) {
                     </div>
                 }
 
-                <button className="absolute top-4 left-4 btn !text-secondary-500">
-                    <HeartIcon className="w-5 h-5"/>
-                </button>
-
+                <LikeProduct product={product}/>
 
                 <Link href={`/products/${product.slug}`} className="w-full h-[200px] flex items-center justify-center">
                     <Image 

@@ -10,18 +10,29 @@ import { MinusIcon, PlusIcon, SadEmojiIcon, TrashIcon } from "@/common/Icons";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useAddToCart, useRemoveFromCart } from "@/hooks/useCart";
 
 export function AddToCart({ product }){
     const { data, isPending:isGettingUser } = useGetUser();
     const { user } = data || {};
-    const { isPending, mutateAsync: mutateAddToCart } = useMutation({ mutationFn : addToCart });
+    const { isPending, mutateAsync: mutateAddToCart } = useAddToCart();
+    const { isPending: isRemoving, mutateAsync:mutateRemoveFromCart } = useRemoveFromCart();
     const queryClient = useQueryClient();
 
     const isInCart = () => {
        const isProduct = user?.cart.products.some((p) => p.productId === product._id);
        return isProduct;
     }
-    
+
+    const  getQuantityHandler = () =>{
+        const userCart = user?.cart?.products;
+        for(let i in userCart) {
+            if(userCart[i].productId === product._id){
+                return userCart[i].quantity;
+            }
+        }
+    }
+
     const addToCartHandler = async () => {
         if(!user){
             ToastError("لطفا ابتدا وارد حساب کاربری خود شوید");
@@ -40,14 +51,18 @@ export function AddToCart({ product }){
         }
     }
 
-    const  getQuantityHandler = () =>{
-        const userCart = user?.cart.products;
-        for(let i in userCart) {
-            if(userCart[i].productId === product._id){
-                return userCart[i].quantity;
+    const removeCartItemHandler = async () => {
+        try {
+            const { message } = await mutateRemoveFromCart(product._id);
+            if(getQuantityHandler() === 1) {
+                ToastSuccess(message)
             }
+            queryClient.invalidateQueries({queryKey:["get-user"]});
+        } catch (error) {
+            ToastError(error?.response?.data?.message);
         }
     }
+
 
     if(isGettingUser) return <Skeleton className="!w-full !h-full !rounded-xl" containerClassName="!w-full !h-12 !block"/>
 
@@ -63,10 +78,15 @@ export function AddToCart({ product }){
                     >
                         <PlusIcon className={'w-6 h-6'}/>
                     </button>
-                    <div className="text-primary-900">
-                        {toPersianDigit(getQuantityHandler())}
-                    </div>
-                    <button className="btn text-error">
+                    {
+                        isRemoving || isPending ?
+                        <Loading />
+                        :
+                        <div className="text-primary-900">
+                            {toPersianDigit(getQuantityHandler())}
+                        </div>
+                    }
+                    <button onClick={removeCartItemHandler} className="btn text-error">
                         {
                             getQuantityHandler() === 1 ?
                             <TrashIcon className={'w-6 h-6'}/>

@@ -47,9 +47,12 @@ export default function BottomMenu(){
                             className="flex flex-col items-center gap-2"
                         >
                             <div className="w-auto relative">
+                                {
+                                cart && cart.payDetail.productIds.length !== 0 &&
                                 <div className="absolute flex items-center justify-center top-[13px] right-[-3px] w-4 h-4 text-[10px] rounded-full bg-error text-white">
                                     {toPersianDigit(cart ? cart.payDetail.productIds.length : "0")}
                                 </div>
+                                }
                                 <CartIcon className={'w-6 h-6'}/>
                             </div>
                             <span className="text-xs truncate">

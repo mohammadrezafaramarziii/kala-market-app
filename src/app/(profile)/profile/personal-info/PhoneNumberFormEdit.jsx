@@ -3,21 +3,23 @@ import TextField from "@/common/TextField";
 import Loading from "@/common/loading/Loading";
 import Modal from "@/components/profileComponent/Modal";
 import { checkOtp, updateProfile } from "@/services/authService";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import OTPInput from "react-otp-input";
 import { kalamehNumFont } from "@/constants/localFonts";
+import ToastError from "@/common/toasts/ToastError";
+import ToastSuccess from "@/common/toasts/ToastSuccess";
 
 export default function PhoneNumberFormEdit({show, onClose, value}){
     const { isPending:isUpdating, mutateAsync:mutateUpdateProfile } = useMutation({ mutationFn: updateProfile });
     const { isPending : isCheckingOtp, mutateAsync : mutateCheckOtp } = useMutation({ mutationFn: checkOtp });
-    
+    const queryClient = useQueryClient();
+
     const [otp, setOtp] = useState("")
     const [otpErr, setOtpErr] = useState("");
-
 
     const closeHandler = () => {
         formik.setFieldValue("phoneNumber", "");
@@ -25,7 +27,6 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
         setOtpErr("")
         onClose();
     }
-
 
     const updateProfileHandler = async () => {
         if(otp) {
@@ -45,9 +46,11 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
 
                         if(data){
                            closeHandler();
+                           ToastSuccess("شماره موبایل با موفقیت آپدیت شد");
+                           queryClient.invalidateQueries({queryKey:['get-user']});
                         }
                     } catch (error) {
-                        console.log(error);
+                       ToastError(error?.response?.data?.message);
                     }
                 }
             } catch (error) {
@@ -79,7 +82,7 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
             show={show}
             onClose={closeHandler}
         >
-            <p className="text-error my-4">برای ویرایش کد یکبار مصرف به شماره موبایل فعلی ارسال می شود</p>
+            <p className="text-error text-sm my-4">برای ویرایش کد یکبار مصرف به شماره موبایل فعلی ارسال می شود</p>
 
             <label className="text-sm mr-1 text-slate-500">شماره موبایل فعلی</label>
             <div className="textField__input flex items-center bg-slate-50 mb-6">

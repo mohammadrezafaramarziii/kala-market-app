@@ -2,11 +2,10 @@
 import { EditIcon, LogoutIcon, UserIcon } from "@/common/Icons";
 import { useGetUser } from "@/hooks/useAuth";
 import { toPersianDigit } from "@/utils/toPersianDigit";
-import menuJson from "@/app/(profile)/profile/menu.json";
+import menuJson from "@/app/(admin)/admin/menu.json";
 import Link from "next/link";
-import { renderIconMenu } from "@/app/(profile)/profile/renderIconMenu";
+import { renderIconMenu } from "@/app/(admin)/admin/renderIconMenu";
 import { usePathname } from "next/navigation";
-import LogoutModal from "@/app/(profile)/profile/LogoutModal";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { logout } from "@/services/authService";
@@ -77,9 +76,6 @@ export default function Sidebar({show, onClose}){
                                 }
                             </div>
                         </div>
-                        <Link href={'/profile/personal-info'} className="btn btn--light !w-8 !h-8 !rounded-lg">
-                            <EditIcon className={'w-4 h-4'}/>
-                        </Link>
                     </div>
                 </div>
 

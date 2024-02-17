@@ -1,4 +1,5 @@
 [
     {"title": "صفحه اصلی", "link":"/profile", "label":"home"},
-    {"title": "اطلاعات کاربری", "link":"/profile/personal-info", "label":"profile"}
+    {"title": "اطلاعات کاربری", "link":"/profile/personal-info", "label":"profile"},
+    {"title": "سفارشات", "link":"/profile/payments", "label":"orders"}
 ]

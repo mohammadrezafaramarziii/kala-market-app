@@ -3,11 +3,11 @@ import { CartIcon, HomeIcon, LogoutIcon, MenuIcon } from "@/common/Icons";
 import { useGetUser } from "@/hooks/useAuth";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import Link from "next/link";
-import Sidebar from "./Siderbar";
 import { useState } from "react";
 import { logout } from "@/services/authService";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import Sidebar from "./Siderbar";
 
 
 export default function Titlebar(){
@@ -49,7 +49,7 @@ export default function Titlebar(){
                     }
                     </div>
                     <h1 className="text-secondary-800 font-bold text-3xl hidden lg:block">
-                        پنل کاربری
+                        پنل ادمین
                     </h1>
                     <div className="text-xs text-secondary-500">
                         امروز {weekday} {todayDate}
@@ -64,10 +64,6 @@ export default function Titlebar(){
 
                 <Link href={'/'} className="btn btn--light !w-10 !h-10 shadow-xl">
                     <HomeIcon className={'w-5 h-5'}/>
-                </Link>
-
-                <Link href={'/cart'} className="btn btn--light !w-10 !h-10 shadow-xl">
-                    <CartIcon className={'w-5 h-5'}/>
                 </Link>
             </div>
         </div>

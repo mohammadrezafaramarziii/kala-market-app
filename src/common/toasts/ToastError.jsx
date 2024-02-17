@@ -16,7 +16,8 @@ export default function ToastError(message){
       style:{
         borderRadius: "14px",
         padding: "10px 14px 10px 8px",
-        width: "auto",
+        maxWidth: "none",
+        minWidth:"350px",
         background: "rgb(34, 36, 58)",
       },
       duration:5000

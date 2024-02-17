@@ -4,6 +4,7 @@ import kalamehFont from "@/constants/localFonts"
 import { Toaster } from "react-hot-toast"
 import "../../globals.css"
 import Sidebar from "@/components/profileComponent/Siderbar";
+import Titlebar from "@/components/profileComponent/Titlebar"
 
 export const metadata = {
   title: 'پروفایل',
@@ -16,14 +17,17 @@ export default function RootLayout({children}) {
       <body className={`${kalamehFont.variable} font-sans`}>
         <Toaster />
         <Providers>
-          <BottomMenu />
-          <main className="w-full max-w-[1280px] mx-auto lg:h-screen grid grid-cols-12 lg:grid-cols-7 p-6 lg:py-8 lg:px-10 gap-4">
-            <section className="hidden lg:block w-full col-span-2 lg:h-full lg:overflow-y-auto">
+          <main className="w-full mx-auto lg:h-screen lg:grid grid-cols-12">
+
+            <div className="hidden lg:block col-span-3">
               <Sidebar />
-            </section>
-            <section className="w-full lg:h-full lg:overflow-y-auto col-span-12 lg:col-span-5">
+            </div>
+
+            <div className="col-span-9 lg:overflow-y-auto">
+              <Titlebar />
               {children}
-            </section>
+            </div>
+
           </main>
         </Providers>
       </body>

@@ -2,7 +2,7 @@
 import Modal from "@/components/profileComponent/Modal";
 import { logout } from "@/services/authService";
 
-export default function LogoutModal({show, onClose, modalName}){
+export default function LogoutModal({show, onClose}){
 
     const logoutHandler = async () => {
         await logout();
@@ -13,7 +13,7 @@ export default function LogoutModal({show, onClose, modalName}){
         <Modal 
             show={show}
             onClose={onClose}
-            modalName={modalName}
+            modalName={'modal-logout'}
             title="از حساب کاربری خارج می‌شوید؟"
         >
             <p className="text-sm leading-[24px] mb-5 text-secondary-800 font-medium">
