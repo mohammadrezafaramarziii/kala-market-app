@@ -7,6 +7,8 @@ import { DownIcon } from "@/common/Icons";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { cookies } from "next/headers";
 import { toStringCookies } from "@/utils/toStringCookies";
+import Image from "next/image";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic"; // force-dynamic or lazy (lazy is default)
 
@@ -22,80 +24,62 @@ export default async function ProductsPage({searchParams}){
         <div className="w-full pb-[128px]">
             
 
-            <div className="w-full h-[300px] p-6">
-                <div>
-                    <h1 className="text-xl font-bold text-secondary-900">
+            <div className="w-full px-3 pb-3 pt-6 lg:p-6">
+                <div className="w-full mb-6">
+                    <h1 className="text-xl lg:text-2xl font-bold text-secondary-900">
                         همه محصولات
                     </h1>
+                </div>
+                <div className="w-full h-[270px] lg:h-[320px]">
+                    <Image
+                        src={'/images/products-baner.png'}
+                        alt=""
+                        width={1366}
+                        height={248}
+                        className="w-full h-full object-cover obect-right rounded-xl md:rounded-2xl"
+                    />
                 </div>
             </div>
 
 
-            <div className="w-full bg-white relative">
-                <div className="p-4 border-b lg:hidden">
-                    <ul className="flex items-center gap-2 text-xs text-secondary-700">
-                        <li>
-                            صفحه اصلی
-                        </li>
-                        <DownIcon className={'w-4 h-4 rotate-90'}/>
-                        <li>
-                            محصولات
-                        </li>
-                    </ul>
+            <div className="w-full relative lg:grid lg:grid-cols-12 items-start">
+
+
+                <div className="border-y lg:border-none p-4 mt-5 sticky top-[144px] lg:top-[115px] z-50 bg-slate-50 lg:col-span-3">
+                    <CategorySidebar />
                 </div>
 
-                <div className="w-full flex flex-col lg:flex-row lg:items-start">
-                    <div className="w-full lg:w-[300px] lg:min-w-[270px] flex items-center gap-2 p-4 border-b lg:border-none sticky top-[72px] lg:top-[calc(112px+32px)] bg-white z-50">
-                        <CategorySidebar />
+
+                <div className="sm:p-6 lg:col-span-9">
+                    <div className="mb-4 flex items-center justify-between px-4 pt-4 sm:p-0">
+                        <ul className="flex items-center gap-2 text-xs lg:text-sm text-secondary-400">
+                            <li className="flex items-center gap-2">
+                                <Link href={'/'}>
+                                    خانه
+                                </Link>
+                                <DownIcon className={'rotate-90 w-4 h-4 mt-1'}/>
+                            </li>
+                            <li>
+                                <Link href={'/products'}>
+                                    محصولات
+                                </Link>
+                            </li>
+                        </ul>
+
+                        <div className="text-xs lg:text-sm text-secondary-500 font-medium">
+                            { products && toPersianDigit(products.length)} محصول
+                        </div>
                     </div>
-
-                    <div className="w-full">
-                        {/* in mobile */}
-                        <div className="w-full flex md:hidden flex-col gap-4 px-4 mt-4">
-                            {products.map((product)=>{
-                                return(
-                                    <ProductCardMobile
-                                        key={product._id}
-                                        title={product.description}
-                                        price={product.price}
-                                        offPrice={product.offPrice}
-                                        discount={product.discount}
-                                        href={`/products/${product.slug}`}
-                                        brand={product.brand}
-                                        countInStock={product.countInStock}
-                                    />
-                                )
-                            })}
-                        </div>
-                        
-
-                        {/* in desktop */}
-                        <div className="hidden lg:block px-6">
-                            <div className="py-6 border-b flex items-center justify-between">
-                                <ul className="flex items-center gap-2 text-xs text-secondary-700">
-                                    <li>
-                                        صفحه اصلی
-                                    </li>
-                                    <DownIcon className={'w-4 h-4 rotate-90'}/>
-                                    <li>
-                                        محصولات
-                                    </li>
-                                </ul>
-                                <div className="text-sm text-secondary-500">
-                                    {toPersianDigit(`${products.length} کالا`)}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="w-full hidden md:grid grid-cols-3 xl:grid-cols-4 gap-5 p-6">   
-                            {products.map((product)=>{
-                                return(
-                                    <ProductCard
-                                        key={product._id}
-                                        product={product}
-                                    />
-                                )
-                            })}
-                        </div>
+                    <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:border-t sm:border-r">   
+                        {products.map((product)=>{
+                            return(
+                                <ProductCard
+                                    key={product._id}
+                                    product={product}
+                                    className={'!border-l !border-b !bg-transparent hover:!bg-white hover:!shadow-lg !shadow-none !rounded-none'}
+                                />
+                            )
+                        })}
                     </div>
                 </div>
             </div>

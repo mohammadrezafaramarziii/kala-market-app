@@ -1,5 +1,5 @@
 "use client";
-import { SortBottomIcon, TickIcon } from "@/common/Icons";
+import { CloseIcon, SortBottomIcon, TickIcon } from "@/common/Icons";
 import RadioInput from "@/common/RadioInput";
 import Modal from "@/components/profileComponent/Modal";
 import { toPersianDigit } from "@/utils/toPersianDigit";
@@ -49,30 +49,23 @@ export function ProductsSort(){
 
     return(
         <>
-        <div className="hidden w-full mb-5 lg:flex">
-            <AccordionCustome 
-                title={
-                    sortActive ? 
-                    sortOptions.map((sort)=>{
-                        if(sortActive === sort.value) return sort.label
-                    })
-                    :
-                    "مرتب سازی"
-                }
-            >
-                <div className="flex flex-col gap-2">
-                    {sortOptions.map((sortItem)=>{
-                        return(
-                            <RadioInput
-                                key={sortItem.id}
-                                onClick={()=>sortHandler(sortItem.value)}
-                                checked={sortActive===sortItem.value}
-                                label={sortItem.label}
-                            />
-                        )
-                    })}
-                </div>
-            </AccordionCustome>
+        <div className="hidden w-full mb5 lg:flex flex-col overflow-hidden">
+            <div className="w-full p-4 text-secondary-800 font-bold">
+                مرتب سازی
+            </div>
+
+            <div className="flex flex-col max-h-[350px] overflow-y-auto px-6">
+                {sortOptions.map((sortItem)=>{
+                    return(
+                        <RadioInput
+                            key={sortItem.id}
+                            onClick={()=>sortHandler(sortItem.value)}
+                            checked={sortActive===sortItem.value}
+                            label={sortItem.label}
+                        />
+                    )
+                })}
+            </div>
         </div>
 
         <div className="lg:hidden">

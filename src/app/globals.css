@@ -35,7 +35,7 @@
 
 @layer components{
   .textField__input{
-    @apply w-full outline-none border px-4 h-12 rounded-xl text-sm text-slate-900 placeholder-slate-900/50
+    @apply w-full outline-none bg-transparent border px-4 h-14 rounded-xl text-sm text-slate-900 placeholder-slate-900/50
   }
 
   .btn{
@@ -43,7 +43,7 @@
   }
 
   .btn--primary{
-    @apply w-full disabled:bg-slate-300 disabled:hover:outline-none h-12 bg-primary-900 text-white text-sm font-medium outline outline-transparent hover:outline-primary-200
+    @apply disabled:bg-slate-300 h-14 bg-primary-900 text-white text-sm hover:bg-primary-700
   }
 
   .btn--light{
@@ -66,7 +66,8 @@ body {
   font-family: var(--font-iranSansX);
   min-height: 100vh;
   user-select: none;
-  background-color: rgb(244, 245, 247);
+  background-color: rgb(248 250 252);
+  /* background-color: rgb(244, 245, 247); */
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -79,4 +80,20 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+/* width */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+*::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+/* Handle */
+*::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
 }

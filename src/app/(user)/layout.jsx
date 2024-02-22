@@ -4,6 +4,9 @@ import Header from "../../components/header/Header";
 import { Toaster } from "react-hot-toast";
 import Provideres from "../Providers";
 import BottomMenu from "@/components/header/BottomMenu";
+import Topbar from "@/components/header/Topbar";
+import Navbar from "@/components/header/Navbar";
+import Category from "@/components/header/Category";
 
 export const metadata = {
   title: "کالا مارکت | فروشگاه اینترنتی",
@@ -13,10 +16,14 @@ export const metadata = {
 export default function RootLayout({children}) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={`${kalamehFont.variable} font-sans`}>
+      <body className={`${kalamehFont.variable} relative font-sans max-w-[1440px] mx-auto`}>
         <Toaster />
         <Provideres>
-          <Header />
+          {/* <Header /> */}
+          {/* <Navbar /> */}
+          <Topbar />
+          <Navbar />
+          <Category />
           <BottomMenu />
           {children}
         </Provideres>

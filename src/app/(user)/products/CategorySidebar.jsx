@@ -8,7 +8,7 @@ export default async function CategorySidebar() {
   const { categories } = await getCategories();
 
   return (
-    <div className="w-full flex lg:flex-col items-center gap-2 col-span-1">
+    <div className="w-full flex lg:flex-col items-center gap-2 lg:gap-8 col-span-1">
         <ProductsSort />
         <ProductsFilter categories={categories}/>
     </div>

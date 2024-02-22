@@ -8,6 +8,9 @@ import * as Yup from "yup";
 import CheckOTPForm from "./CheckOTPForm";
 import { useRouter } from "next/navigation";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
+import Link from "next/link";
+import Image from "next/image";
+import CompleteProfileForm from "./CompleteProfileForm";
 
 const RESET_TIME = 90;
 
@@ -57,7 +60,7 @@ export default function AuthPage(){
                     router.replace("/");
 
                 } else {
-                    router.replace("/complete-profile");
+                    setStep(3);
                 }
     
             } catch (error) {
@@ -83,7 +86,7 @@ export default function AuthPage(){
                     ToastSuccess("به کالا مارکت خوش آمدید");
                     router.replace("/");
                 } else {
-                    router.replace("/complete-profile");
+                    setStep(3);
                 }
     
             } catch (error) {
@@ -140,14 +143,34 @@ export default function AuthPage(){
                 )
                 break;
 
+            case 3:
+                return(
+                    <CompleteProfileForm />
+                )
+                break;
+
             default:
                 break;
         }
     }
 
     return(
-        <div className="w-full h-screen flex items-center justify-center p-4">
-            {renderStep()}
+        <div className="w-full flex items-center">
+            <div className="w-full flex justify-center mb-6 p-10">
+                <Link href={'/'}>
+                    <Image 
+                        src={'/images/logo-lg.svg'}
+                        alt=""
+                        width={1000}
+                        height={1000}
+                        priority
+                        className="w-[160px]"
+                    />
+                </Link>
+            </div>
+            <div className="w-full max-w-xl max-h-[380px] fixed top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2">
+                {renderStep()}
+            </div>
         </div>
     )
 }

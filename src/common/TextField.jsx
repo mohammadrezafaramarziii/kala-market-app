@@ -2,9 +2,6 @@
 export default function TextField({ label, name, value, onChange, placeholder, error, onBlur, inputClassName }) {
   return (
     <div className="w-full flex flex-col gap-2">
-        <label htmlFor={name} className="text-sm mr-1 text-slate-500">
-            {label}
-        </label>
         <input 
             type="text"
             autoComplete="off"

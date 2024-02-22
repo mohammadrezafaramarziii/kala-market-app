@@ -18,7 +18,7 @@ export default function LikeProduct({product}) {
   }
 
   return (
-    <div className="absolute top-4 left-4 ">
+    <div className="absolute top-5 right-5">
         <button onClick={likeProductHandler} className="btn !text-secondary-500">
             {
                 product.isLiked ?

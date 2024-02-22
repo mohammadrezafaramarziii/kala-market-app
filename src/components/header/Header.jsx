@@ -14,7 +14,7 @@ export default function Header() {
   const items = ["شگفت انگیز ها", "کارت هدیه", "پرفروش ترین", "تخفیف ها و پیشنهاد ها", "سوالی دارید؟"]
   const pathName = usePathname();
   const { data, error, isPending } = useGetUser();
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [screenSize, setScreenSize] = useState(typeof window !== "undefined" && window.innerWidth);
 
   const { user, cart }  = data || {};
 

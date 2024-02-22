@@ -23,13 +23,8 @@ export async function middleware(req){
         const user = await middlewareAuth(req);
         if(user) return NextResponse.redirect(new URL("/profile", url));
     }
-
-    if(pathname.startsWith("/complete-profile")) {
-        const user = await middlewareAuth(req);
-        if(user) return NextResponse.redirect(new URL("/profile", url));
-    }
 }
 
 export const config = {
-    matcher : ["/admin/:path*", "/profile/:path*", "/auth/:path*", "/complete-profile"]
+    matcher : ["/admin/:path*", "/profile/:path*", "/auth/:path*"]
 }

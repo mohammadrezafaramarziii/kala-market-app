@@ -3,9 +3,10 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useCallback } from "react";
 import CheckBox from "@/common/CheckBox"
 import { useState } from "react";
-import { CategoryIcon, SortBottomIcon } from "@/common/Icons";
+import { CategoryIcon, CloseIcon, SortBottomIcon } from "@/common/Icons";
 import Modal from "@/components/profileComponent/Modal";
 import AccordionCustome from "@/common/Accordion";
+import Link from "next/link";
 
 
 export default function ProductsFilter({categories}) {
@@ -42,47 +43,28 @@ export default function ProductsFilter({categories}) {
 
   return (
     <>
-      {/* <div className="hidden">
-          <h3 className="font-medium mb-5">
-          دسته بندی
-          </h3>
-          <ul className="flex flex-col gap-3">
-              {
-                  categories.map((category)=>{
-                      return(
-                          <CheckBox
-                              key={category._id} 
-                              id={category._id}
-                              value={category.englishTitle}
-                              name={'product-type'}
-                              label={category.title}
-                              onChange={categoryHandler}
-                              checked={selectedCategories.includes(category.englishTitle)}
-                          />
-                      )
-                  })
-              }
-          </ul>
-      </div> */}
-      <div className="hidden w-full mb5 lg:flex">
-            <AccordionCustome 
-                title={'دسته بندی'}
-            >
-                <div className="flex flex-col gap-2">
-                    {categories.map((category)=>{
-                        return(
-                          <CheckBox
-                            key={category._id} 
-                            label={category.title}
-                            onClick={()=>categoryHandler(category.englishTitle)}
-                            checked={selectedCategories.includes(category.englishTitle)}
-                          />
-                        )
-                    })}
-                </div>
-            </AccordionCustome>
-        </div>
+      {/* in desktop */}
+      <div className="hidden w-full mb5 lg:flex flex-col overflow-hidden">
+          <div className="w-full p-4 text-secondary-800 font-bold">
+            دسته بندی
+          </div>  
 
+          <div className="flex flex-col max-h-[350px] overflow-y-auto px-6">
+              {categories.map((category)=>{
+                  return(
+                    <CheckBox
+                      key={category._id} 
+                      label={category.title}
+                      englishLabel={category.englishTitle}
+                      onClick={()=>categoryHandler(category.englishTitle)}
+                      checked={selectedCategories.includes(category.englishTitle)}
+                    />
+                  )
+              })}
+          </div>
+      </div>
+
+      {/* in mobile */}
       <div className="lg:hidden">
         <button 
             onClick={()=>setShowCategoryModal(true)}
@@ -101,7 +83,7 @@ export default function ProductsFilter({categories}) {
             modalName={'product-category-modal'}
         >
             <div>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-5">
                 {categories.map((category)=>{
                   return(
                       <CheckBox

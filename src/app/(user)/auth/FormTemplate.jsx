@@ -1,31 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
-
-export default function FormTemplate({title, desc, children, titleChild}) {
+export default function FormTemplate({title, desc, children, titleChild, icon}) {
   return (
-    <div className="w-full max-w-[420px] max-h-[380px] px-6 pt-8 bg-secondary-100/40 rounded-3xl">
-        <div className="w-full flex justify-center mb-6">
-            <Link href={'/'}>
-                <Image 
-                    src={'/images/logo-lg.svg'}
-                    alt=""
-                    width={1000}
-                    height={1000}
-                    priority
-                    className="w-[150px]"
-                />
-            </Link>
-        </div>
-
-        <div className="w-full bg-white rounded-3xl px-6 pb-6 pt-8 shadow-input-focus">
-            <div className="mb-10">
-                <h1 className="text-xl text-slate-800 font-bold text-center mb-2">
+    <div className="w-full">
+        <div className="w-full md:bg-white md:rounded-xl p-4 md:p-10 md:shadow-2xl">
+            <div className="mb-10 border-b md:border-slate-100 pb-6">
+                <h1 className="w-full flex items-center gap-2 text-sm text-secondary-700 font-medium">
+                    <span className="text-secondary-400"> 
+                        {icon}
+                    </span>
                     {title}
                 </h1>
-                <p className="text-xs text-slate-700 text-center">
-                    {desc}
-                </p>
-                {titleChild}
             </div>
 
             {children}

@@ -2,7 +2,7 @@
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import Image from "next/image";
 import { numberWithCommas } from "@/utils/numberWithCommas";
-import { CardSendIcon, CartIcon, HeartIcon, OrderIcon, SadEmojiIcon } from "@/common/Icons";
+import { CardSendIcon, CartBoldIcon, CartIcon, HeartIcon, OrderIcon, SadEmojiIcon } from "@/common/Icons";
 import Link from "next/link";
 import { useGetUser } from "@/hooks/useAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ import { useAddToCart } from "@/hooks/useCart";
 import LikeProduct from "./LikeProduct";
 
 
-export default function ProductCard({ product, className }) {
+export default function ProductCard({ product, className, classNamePriceBox }) {
     const { data, isPending:isGettingUser } = useGetUser();
     const { user } = data || {};
     const { isPending, mutateAsync: mutateAddToCart } = useAddToCart();
@@ -40,15 +40,15 @@ export default function ProductCard({ product, className }) {
     const isInCart = () => {
         const isProduct = user?.cart?.products.some((p) => p.productId === product._id);
         return isProduct;
-     }
+    }
 
     return(
-        <div className={`w-full ${className} relative shadow-lg hover:scale-105 duration-200 bg-slate-50 reltive rounded-xl overflow-hidden p-6`}>
+        <div className={`w-full ${className} shadow-2xl relative duration-200 bg-white rounded-xl overflow-hidden p-6`}>
            <div className={`w-full h-full flex flex-col gap-4`}>
                 
                 {
                 !!product.discount &&
-                    <div className="absolute top-4 right-4 py-[2px] px-2 bg-error text-white text-xs font-medium flex items-center justify-center rounded-xl rounded-br">
+                    <div className="absolute top-5 left-5 py-[2px] px-2 bg-error text-white text-xs font-medium flex items-center justify-center rounded-xl rounded-bl">
                         {toPersianDigit(`${product.discount} %`)}
                     </div>
                 }
@@ -66,59 +66,95 @@ export default function ProductCard({ product, className }) {
                 </Link>
 
                 <div className="w-full flex-1 flex flex-col justify-between">
-                    <div>
-                        <span className="text-xs text-secondary-400">
-                            {product.brand}
-                        </span>
-                        <h3 className="mt-2 leading-[26px] hover:text-primary-900 duration-200 font-bold text-secondary-900">
-                            <Link href={`/products/${product.slug}`}>
-                                {product.title}
-                            </Link>
-                        </h3>
+                    <div className="mb-6">
                         {
-                            Number(product.countInStock) < 5 && Number(product.countInStock) !== 0 &&
+                            !isPending ?                       
+                            <h3 className="mt-2 mb-1 leading-[26px] duration-200 font-semibold text-secondary-800">
+                                <Link href={`/products/${product.slug}`}>
+                                    {product.title}
+                                </Link>
+                            </h3>
+                            :
+                            <Skeleton containerClassName="!w-[80%] !block !h-[27px] mt-2 mb-1" className="!w-full !block !h-[27px] !rounded-lg"/>
+                        }
+                        <div className="flex items-center justify-between">
+                            {
+                                !isPending ?
+                                <>
+                                <span className="text-xs text-secondary-400">
+                                    {product.brand}
+                                </span>
+                                <span className="text-xs text-secondary-400">
+                                    گارانتی یک ساله
+                                </span>
+                                </>
+                                :
+                                <>
+                                <Skeleton 
+                                    containerClassName="!w-12 !block !h-4" 
+                                    className="!w-full !block !h-4 !rounded-md"
+                                />
+                                <Skeleton 
+                                    containerClassName="!w-12 !block !h-4" 
+                                    className="!w-full !block !h-4 !rounded-md"
+                                />
+                                </>
+                            }
+                        </div>
+
+                        {
+                            !isPending && Number(product.countInStock) < 5 && Number(product.countInStock) !== 0 &&
                             <div className="text-xs text-error mt-3">
                                 {toPersianDigit(`تنها ${product.countInStock} عدد در انبار باقی مانده`)}
                             </div>
                         }
                     </div>
 
-                    {
+                    {   
+                        !isPending ?
                         Number(product.countInStock) !== 0 ?
                     
-                        <div className="mt-6">
+                        <div className={`w-full flex items-center justify-between ${classNamePriceBox}`}>
+                            
                             {
-                                !!product.discount &&
-                                <div className="text-xs line-through text-secondary-400 text-left">
-                                    {toPersianDigit(numberWithCommas(product.price))}
+                                isInCart() ?
+                                <div className="w-full">
+                                    <Link href={'/cart'} className=" btn btn--primary !bg-success hover:!bg-success/80 !w-10 !h-10">
+                                        <CartBoldIcon className={'w-6 h-6'}/>
+                                    </Link>
                                 </div>
-                            }
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-1">
-                                    {
-                                        isGettingUser ?
-                                        <Skeleton 
-                                            className="!w-10 !h-10 !rounded-xl"
-                                        />
-                                        :
-                                        isInCart() ?
-                                        <Link href={'/cart'} title="ادامه سفارش" className="btn btn--light w-10 h-10">
-                                            <OrderIcon className="w-5 h-5"/>
-                                        </Link>
-                                        :
-                                        <button title="افزودن به سبد خرید" onClick={addToCartHandler} className="btn btn--primary w-10 h-10">
-                                            <CartIcon className="w-5 h-5"/>
-                                        </button>
-                                    }
-                                </div>
-                                <div className="flex items-center justify-end gap-3">
-                                    <div className="text-primary-900 text-lg flex items-center gap-1 font-semibold">
-                                        {toPersianDigit(numberWithCommas(product.offPrice))}
-                                        <span className="text-[10px]">
-                                            تومان
+                                :
+                                <div className="w-full flex items-center gap-1.5">
+                                    <button onClick={addToCartHandler} className="btn btn--primary !w-10 !h-10">
+                                        <CartBoldIcon className={'w-6 h-6'}/>
+                                    </button>
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] text-secondary-500">
+                                            همین الان
+                                        </span>
+                                        <span className="font-semibold text-primary-900 -mt-1">
+                                            بخــرش
                                         </span>
                                     </div>
                                 </div>
+                            }
+
+                            <div className="w-full flex items-center justify-end">
+                                <div className="w-full flex flex-col items-end font-semibold">
+                                    <div className="text-secondary-900">
+                                        {toPersianDigit(numberWithCommas(product.offPrice))}
+                                    </div>
+                                    {
+                                        !!product.discount &&
+                                        <div className="text-secondary-200 -mt-1 line-through">
+                                            {toPersianDigit(numberWithCommas(product.price))}
+                                        </div>
+                                    }
+                                </div>
+
+                                <span className="max-w-[22px] mb-4 -rotate-90 inline-block text-xs text-secondary-400 -ml3">
+                                    تومــــان   
+                                </span>
                             </div>
                         </div>
 
@@ -127,6 +163,13 @@ export default function ProductCard({ product, className }) {
                         <div className="w-full h-12 rounded-xl flex items-center justify-center bg-slate-200 text-secondary-400 text-sm font-medium">
                             ناموجود <SadEmojiIcon className='w-5 h-5 mr-2'/>
                         </div>
+
+                        :
+
+                        <Skeleton 
+                            containerClassName="!w-full !block !h-12" 
+                            className="!w-full !block !h-12 !rounded-xl"
+                        />
                     }
                 </div>
            </div>
