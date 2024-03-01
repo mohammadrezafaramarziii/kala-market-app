@@ -9,7 +9,6 @@ export const useGetUser = () =>
     refetchOnWindowFocus: true
 })
 
-
 export const useGetAllUser = () =>
   useQuery({ 
     queryKey: ["get-all-user"], 

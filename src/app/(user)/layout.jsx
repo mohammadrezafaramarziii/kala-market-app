@@ -17,7 +17,10 @@ export default function RootLayout({children}) {
   return (
     <html lang="fa" dir="rtl">
       <body className={`${kalamehFont.variable} relative font-sans max-w-[1440px] mx-auto`}>
-        <Toaster />
+        <Toaster 
+          position="bottom-left"
+          reverseOrder={false}
+        />
         <Provideres>
           {/* <Header /> */}
           {/* <Navbar /> */}

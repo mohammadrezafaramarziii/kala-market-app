@@ -76,6 +76,7 @@ export default async function ProductsPage({searchParams}){
                                 <ProductCard
                                     key={product._id}
                                     product={product}
+                                    isLoading={false}
                                     className={'!border-l !border-b !bg-transparent hover:!bg-white hover:!shadow-lg !shadow-none !rounded-none'}
                                 />
                             )

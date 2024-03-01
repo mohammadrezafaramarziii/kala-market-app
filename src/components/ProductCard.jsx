@@ -15,7 +15,7 @@ import { useAddToCart } from "@/hooks/useCart";
 import LikeProduct from "./LikeProduct";
 
 
-export default function ProductCard({ product, className, classNamePriceBox }) {
+export default function ProductCard({ product, className, classNamePriceBox, isLoading, notShowHome }) {
     const { data, isPending:isGettingUser } = useGetUser();
     const { user } = data || {};
     const { isPending, mutateAsync: mutateAddToCart } = useAddToCart();
@@ -43,7 +43,7 @@ export default function ProductCard({ product, className, classNamePriceBox }) {
     }
 
     return(
-        <div className={`w-full ${className} shadow-2xl relative duration-200 bg-white rounded-xl overflow-hidden p-6`}>
+        <div className={`w-full ${className} shadow-lg relative duration-200 bg-white rounded-xl overflow-hidden p-6`}>
            <div className={`w-full h-full flex flex-col gap-4`}>
                 
                 {
@@ -53,12 +53,12 @@ export default function ProductCard({ product, className, classNamePriceBox }) {
                     </div>
                 }
 
-                <LikeProduct product={product}/>
+                {!notShowHome && <LikeProduct product={product}/>}
 
                 <Link href={`/products/${product.slug}`} className="w-full h-[200px] flex items-center justify-center">
                     <Image 
                         src="/images/logo-sm.svg"
-                        alt=""
+                        alt={product.title}
                         width={1000}
                         height={1000}
                         className="w-[50px] opacity-10"
@@ -68,7 +68,7 @@ export default function ProductCard({ product, className, classNamePriceBox }) {
                 <div className="w-full flex-1 flex flex-col justify-between">
                     <div className="mb-6">
                         {
-                            !isPending ?                       
+                            !isLoading ?                       
                             <h3 className="mt-2 mb-1 leading-[26px] duration-200 font-semibold text-secondary-800">
                                 <Link href={`/products/${product.slug}`}>
                                     {product.title}
@@ -79,7 +79,7 @@ export default function ProductCard({ product, className, classNamePriceBox }) {
                         }
                         <div className="flex items-center justify-between">
                             {
-                                !isPending ?
+                                !isLoading ?
                                 <>
                                 <span className="text-xs text-secondary-400">
                                     {product.brand}
@@ -103,7 +103,7 @@ export default function ProductCard({ product, className, classNamePriceBox }) {
                         </div>
 
                         {
-                            !isPending && Number(product.countInStock) < 5 && Number(product.countInStock) !== 0 &&
+                            !isLoading && Number(product.countInStock) < 5 && Number(product.countInStock) !== 0 &&
                             <div className="text-xs text-error mt-3">
                                 {toPersianDigit(`تنها ${product.countInStock} عدد در انبار باقی مانده`)}
                             </div>
@@ -111,7 +111,7 @@ export default function ProductCard({ product, className, classNamePriceBox }) {
                     </div>
 
                     {   
-                        !isPending ?
+                        !isLoading ?
                         Number(product.countInStock) !== 0 ?
                     
                         <div className={`w-full flex items-center justify-between ${classNamePriceBox}`}>
