@@ -12,14 +12,15 @@ import { useEffect, useState } from "react";
 export default function Navbar(){
     const { data, isPending } = useGetUser();
     const { user, cart } = data || {};
-    const [screenSize, setScreenSize] = useState(typeof window !== "undefined" && window.innerWidth);
+    const [screenSize, setScreenSize] = useState();
     const pathName = usePathname();
-
+    
     useEffect(()=>{
         const resizeHandler = () =>{
           setScreenSize(window.innerWidth);
         }
-    
+
+        if(!screenSize) resizeHandler();
         window.addEventListener("resize", resizeHandler);
     
         return()=>{
@@ -32,9 +33,9 @@ export default function Navbar(){
     
     return(
         <header className="w-full sticky z-[60] bg-white top-0 right-0 shadow-[0px_30px_16px_-30px_rgba(0,0,0,0.1)]">
-            <nav className="py-5 lg:py-6 px-6 lg:px-8">
+            <nav className="py-5 lg:py-6 px-6 xl:max-w-6xl mx-auto">
 
-                <div className="lg:borderb lg:pb6 border-slate-50 w-full flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between lg:gap-4 xl:gap-8">
+                <div className="border-slate-50 w-full flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between lg:gap-4 xl:gap-8">
                     <div className="flex items-center justify-between">
                         <div className="lg:hidden">
                             <button className="btn">
@@ -71,7 +72,7 @@ export default function Navbar(){
                     </div>
 
                     <div className="w-full flex justify-center">
-                        <div className="w-full xl:max-w-[70%] h-12 md:h-14 px-5 bg-slate-100 flex items-center justify-between rounded-xl">
+                        <div className="w-full xl:max-w-[90%] h-12 md:h-14 px-5 bg-slate-100 flex items-center justify-between rounded-xl">
                             <p className="text-secondary-400 text-xs">جستجو بین محصولات</p>
                             <SearchIcon className={'w-5 h-5 text-secondary-400'}/>
                         </div>

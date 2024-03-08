@@ -13,7 +13,7 @@ export default function Category(){
         "قطعات سخت افزاری",
         "محصولات نرم افزاری",
     ];
-    const [screenSize, setScreenSize] = useState(typeof window !== "undefined" && window.innerWidth);
+    const [screenSize, setScreenSize] = useState();
     const pathName = usePathname();
 
     useEffect(()=>{
@@ -34,7 +34,7 @@ export default function Category(){
 
     return(
         <div className="shadow-[0px_30px_16px_-30px_rgba(0,0,0,0.1)] bg-white sticy top-0 right-0 pt-6 hidden lg:block pb-6 px-6 lg:px-8">
-            <ul className="flex items-center gap-6">
+            <ul className="flex items-center gap-6 xl:max-w-6xl mx-auto px-6">
                 {
                     menuItems.map((item, index)=>{
                         return(

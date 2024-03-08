@@ -22,7 +22,8 @@ export default function Header() {
     const resizeHandler = () =>{
       setScreenSize(window.innerWidth);
     }
-
+    
+    if(!screenSize) resizeHandler();
     window.addEventListener("resize", resizeHandler);
 
     return()=>{

@@ -9,7 +9,7 @@ export function CartLink(){
     const { cart } = data || {};
     
     return(
-        <Link href={'/cart'} className="btn relative">
+        <Link href={'/cart'} className="btn relative text-secondary-800">
             {
                 cart && cart.payDetail.productIds.length !== 0 &&
                 <div className="absolute flex items-center justify-center top-[13px] right-[-3px] w-4 h-4 text-[10px] rounded-full bg-error text-white">

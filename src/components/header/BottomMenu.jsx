@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link"
 import { CartIcon, CategoryIcon, HomeIcon, LoginIcon, UserAdminIcon, UserIcon } from "@/common/Icons"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { useGetUser } from "@/hooks/useAuth";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 
@@ -17,7 +17,7 @@ export default function BottomMenu(){
 
     return(
         <div className="w-full fixed bottom-0 right-0 lg:hidden z-50">
-            <div className="bg-white py-4 px-6">
+            <div className="bg-white py-4 px-6 shadow-[0_-10px_25px_-5px_rgb(0,0,0,0.1)]">
                 <ul className="w-full flex items-center justify-between gap-4">
                     <li className={`w-full ${pathname === "/" ? "text-primary-900 before:h-[3px]" : "text-slate-600 before:h-0"} relative before:w-full before:absolute before:-bottom-4 before:right-0 before:bg-primary-900 before:duration-200 before:rounded-t-full`}>
                         <Link 
@@ -30,14 +30,14 @@ export default function BottomMenu(){
                             </span>
                         </Link>
                     </li>
-                    <li className={`w-full ${pathname === "/categories" ? "text-primary-900 before:h-[3px]" : "text-slate-600 before:h-0"} relative before:w-full before:absolute before:-bottom-4 before:right-0 before:bg-primary-900 before:duration-200 before:rounded-t-full`}>
+                    <li className={`w-full ${pathname === "/products" ? "text-primary-900 before:h-[3px]" : "text-slate-600 before:h-0"} relative before:w-full before:absolute before:-bottom-4 before:right-0 before:bg-primary-900 before:duration-200 before:rounded-t-full`}>
                         <Link 
-                            href={'/categories'}
+                            href={'/products'}
                             className="flex flex-col items-center gap-2"
                         >
                             <CategoryIcon className={'w-6 h-6'}/>
                             <span className="text-xs truncate">
-                                دسته بندی
+                                محصولات
                             </span>
                         </Link>
                     </li>
