@@ -49,7 +49,7 @@ export default function BrandSlider({ title, etitle, href, products, isLoading, 
                         alt=""
                         width={1000}
                         height={1000}
-                        className="w-full h-full mix-blend-multiply"
+                        className="w-full h-full"
                     />
                 </div>
               </SwiperSlide>

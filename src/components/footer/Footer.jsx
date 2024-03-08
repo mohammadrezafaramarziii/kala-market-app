@@ -1,7 +1,8 @@
 "use client"
 import Image from "next/image";
-import { EmailIcon, FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from "@/common/Icons";
+import { EmailIcon, FacebookIcon, InstagramIcon, MedalIcon, PayInHomeIcon, ReturnTen, SupportIcon, TwitterIcon, YoutubeIcon } from "@/common/Icons";
 import EnamdSlider from "./EnamdSlider";
+import { toPersianDigit } from "@/utils/toPersianDigit";
 
 export default function Footer(){
 
@@ -92,6 +93,33 @@ export default function Footer(){
 
                 <div className="lg:col-span-3">
                     <EnamdSlider />
+                </div>
+            </div>
+
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-20 px-6">
+                <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
+                    <SupportIcon className="w-6 h-6 text-secondary-400"/>
+                    <span className="text-xs text-secondary-700 font-semibold">
+                        {toPersianDigit("پشتیبانی 24 ساعت، 7 روز هفته")} 
+                    </span>
+                </div>
+                <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
+                    <PayInHomeIcon className="w-6 h-6 text-secondary-400"/>
+                    <span className="text-xs text-secondary-700 font-semibold">
+                        {toPersianDigit("امکان پرداخت در محل")} 
+                    </span>
+                </div>
+                <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
+                    <ReturnTen className="w-6 h-6 text-secondary-400"/>
+                    <span className="text-xs text-secondary-700 font-semibold">
+                        {toPersianDigit("10 روز ضمانت بازگشت کالا")} 
+                    </span>
+                </div>
+                <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
+                    <MedalIcon className="w-6 h-6 text-secondary-400"/>
+                    <span className="text-xs text-secondary-700 font-semibold">
+                        {toPersianDigit("ضمانت اصل بودن کالا")} 
+                    </span>
                 </div>
             </div>
 

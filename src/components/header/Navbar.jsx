@@ -8,11 +8,13 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { useGetUser } from "@/hooks/useAuth";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import SidebarMenu from "./SidebarMenu";
 
 export default function Navbar(){
     const { data, isPending } = useGetUser();
     const { user, cart } = data || {};
     const [screenSize, setScreenSize] = useState();
+    const [showSidebarMenu, setShowSidebarMenu] = useState(false);
     const pathName = usePathname();
     
     useEffect(()=>{
@@ -29,16 +31,24 @@ export default function Navbar(){
     })
     
     if(pathName === "/auth" || pathName === "/complete-profile") return null
-    if(pathName.startsWith("/products") && pathName !== "/products" && screenSize <= 1024) return null
+    if(pathName.startsWith("/products") && pathName !== "/products" && window.innerWidth <= 1024) return null
     
     return(
+        <>
+
+        {
+            window.innerWidth <= 1024 &&
+            <SidebarMenu onClose={()=>setShowSidebarMenu(false)} show={showSidebarMenu}/>
+        }
+
         <header className="w-full sticky z-[60] bg-white top-0 right-0 shadow-[0px_30px_16px_-30px_rgba(0,0,0,0.1)]">
+
             <nav className="py-5 lg:py-6 px-6 xl:max-w-6xl mx-auto">
 
                 <div className="border-slate-50 w-full flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between lg:gap-4 xl:gap-8">
                     <div className="flex items-center justify-between">
                         <div className="lg:hidden">
-                            <button className="btn">
+                            <button onClick={()=>setShowSidebarMenu(true)} className="btn text-secondary-800">
                                 <MenuIcon className={'w-6 h-6'}/>
                             </button>
                         </div>
@@ -65,16 +75,16 @@ export default function Navbar(){
                         </div>
 
                         <div className="lg:hidden">
-                            <button className="btn">
+                            <Link href={user && !isPending ? "/profile" : "/auth"} className="btn text-secondary-800">
                                 <UserIcon className={'w-6 h-6'}/>
-                            </button>
+                            </Link>
                         </div>
                     </div>
 
-                    <div className="w-full flex justify-center">
+                    <div className="w-full lg:flex justify-center hidden">
                         <div className="w-full xl:max-w-[90%] h-12 md:h-14 px-5 bg-slate-100 flex items-center justify-between rounded-xl">
                             <p className="text-secondary-400 text-xs">جستجو بین محصولات</p>
-                            <SearchIcon className={'w-5 h-5 text-secondary-400'}/>
+                            <SearchIcon className={'w-5 h-5 !text-secondary-400'}/>
                         </div>
                     </div>
 
@@ -122,7 +132,7 @@ export default function Navbar(){
                                 سبد خرید
                             </div>
                             {cart && cart.payDetail.productIds.length !== 0 &&
-                            <div className="text-2xl font-semibold border-r border-slate-200/50 pr-3">
+                            <div className="w-10 h-10 btn text-2xl font-semibold border-r border-slate-200/50 rounded-full">
                                 {toPersianDigit(cart.payDetail.productIds.length)}
                             </div>
                             }
@@ -132,5 +142,6 @@ export default function Navbar(){
 
             </nav>
         </header>
+        </>
     )
 }

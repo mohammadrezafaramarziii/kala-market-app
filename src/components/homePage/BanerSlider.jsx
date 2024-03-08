@@ -22,7 +22,7 @@ export default function BanerSlider() {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper rounded-3xl shadow-xl" 
         >
-            {[1,2,3,4,5,6,7,8].map((baner, index)=>{
+            {[1,2,3,4,5,6,7].map((baner, index)=>{
                 return(
                 <SwiperSlide key={index}>
                     <div className="w-full relative h-[250px] md:h-[400px]">

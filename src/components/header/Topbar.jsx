@@ -22,7 +22,7 @@ export default function Topbar() {
   })
   
   if(pathName === "/auth" || pathName === "/complete-profile") return null
-  if(pathName.startsWith("/products") && pathName !== "/products" && screenSize <= 1024) return null
+  if(pathName.startsWith("/products") && pathName !== "/products" && window.innerWidth <= 1024) return null
   
   return (
     <div className="hidden lg:block py-4 bg-white">

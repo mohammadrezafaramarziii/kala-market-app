@@ -1,12 +1,13 @@
 import { getProductBySlug, getProducts } from "@/services/productService";
 import Image from "next/image";
-import { LikeIcon, StarIcon, ArrowRightIcon, DownIcon, HashtagIcon, CommentIcon, SecureIcon, SupportIcon, PayInHomeIcon, ReturnTen, MedalIcon, PlayIcon, DislikeIcon } from "@/common/Icons";
+import { LikeIcon, StarIcon, DownIcon, HashtagIcon, CommentIcon, SecureIcon, SupportIcon, PayInHomeIcon, ReturnTen, MedalIcon, PlayIcon, DislikeIcon } from "@/common/Icons";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { CartLink } from "./CartLink";
 import { AddToCart } from "./AddToCart";
 import { LikeProduct } from "./LikeProduct";
 import ShareLink from "./ShareLink";
+import BackLink from "./BackLink";
 
 export const dynamic = "force-static";
 export const dynamicParams = false;
@@ -19,11 +20,9 @@ export default async function ProductDetailsPage({params}){
         <div className="w-full xl:max-w-6xl mx-auto">
             
             {/* ***** top bar ***** */}
-            <div className="w-full lg:hidden flex items-center z-50 justify-between top-0 right-0 bg-white/70 backdrop-blur-md p-6 shadow-md">
+            <div className="w-full lg:hidden sticky flex items-center z-50 justify-between top-0 right-0 bg-white/70 backdrop-blur-md p-6 shadow-md">
                 <div className="flex items-center gap-3">
-                    <button className="btn text-secondary-800">
-                        <ArrowRightIcon className={'w-6 h-6'}/>
-                    </button>
+                    <BackLink />
                     <div>
                         <Image 
                             src={'/images/logo-lg.svg'}
