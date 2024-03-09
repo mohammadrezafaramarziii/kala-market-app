@@ -1,7 +1,7 @@
 export const userPaymentsTHeads = [
     {
         id:1,
-        label:"#"
+        label:"ردیف"
     },
     {
         id:2,
@@ -9,20 +9,20 @@ export const userPaymentsTHeads = [
     },
     {
         id:3,
-        label:"توضیحات"
-    },
-    {
-        id:4,
         label:"مبلغ سفارش"
     },
     {
+        id:4,
+        label:"تاریخ سفارش"
+    },
+    {
         id:5,
-        label:"تاریخ"
+        label:"وضعیت سفارش"
     },
     {
         id:6,
-        label:"وضعیت سفارش"
-    },
+        label:"وضعیت پرداخت"
+    }
 ]
 
 export const adminUsersTHeads = [

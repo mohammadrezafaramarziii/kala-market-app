@@ -25,7 +25,7 @@ export default function Topbar() {
   if(pathName.startsWith("/products") && pathName !== "/products" && window.innerWidth <= 1024) return null
   
   return (
-    <div className="hidden lg:block py-4 bg-white">
+    <div className={`hidden lg:block py-4 bg-white`}>
         <div className="xl:max-w-6xl mx-auto lg:flex items-center justify-between px-6">
           {/* ** menu ** */}
           <div>

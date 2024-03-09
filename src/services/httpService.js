@@ -1,4 +1,5 @@
 import axios from "axios"
+import { notFound } from "next/navigation";
 
 
 const app = axios.create({
@@ -19,6 +20,8 @@ app.interceptors.response.use(
     (res) => res,
     async (err) => {
        const originalConfig = err.config;
+
+       if(err.response.status===404) return notFound();
 
        if(err.response.status === 401 && !originalConfig._retry) {
             originalConfig._retry = true;

@@ -17,7 +17,7 @@ export default function BottomMenu(){
 
     return(
         <div className="w-full fixed bottom-0 right-0 lg:hidden z-50">
-            <div className="bg-white py-4 px-6 shadow-[0_-10px_25px_-5px_rgb(0,0,0,0.1)]">
+            <div className={`bg-white py-4 px-6 ${pathname !== "/cart" ? "shadow-[0_-10px_25px_-5px_rgb(0,0,0,0.1)]" : "border-t"}`}>
                 <ul className="w-full flex items-center justify-between gap-4">
                     <li className={`w-full ${pathname === "/" ? "text-primary-900 before:h-[3px]" : "text-slate-600 before:h-0"} relative before:w-full before:absolute before:-bottom-4 before:right-0 before:bg-primary-900 before:duration-200 before:rounded-t-full`}>
                         <Link 

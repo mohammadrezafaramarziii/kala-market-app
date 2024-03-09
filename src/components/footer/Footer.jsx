@@ -3,8 +3,13 @@ import Image from "next/image";
 import { EmailIcon, FacebookIcon, InstagramIcon, MedalIcon, PayInHomeIcon, ReturnTen, SupportIcon, TwitterIcon, YoutubeIcon } from "@/common/Icons";
 import EnamdSlider from "./EnamdSlider";
 import { toPersianDigit } from "@/utils/toPersianDigit";
+import { usePathname } from "next/navigation";
 
 export default function Footer(){
+    const pathname = usePathname();
+
+    if(pathname === "/cart") return null
+    if(pathname === "/auth") return null
 
     return(
         <footer className="w-full mt-20">

@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import CheckBox from "@/common/CheckBox"
 import { useState } from "react";
 import { CategoryIcon, CloseIcon, SortBottomIcon } from "@/common/Icons";
-import Modal from "@/components/profileComponent/Modal";
+import Modal from "@/components/Modal";
 import AccordionCustome from "@/common/Accordion";
 import Link from "next/link";
 

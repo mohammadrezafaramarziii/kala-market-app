@@ -1,7 +1,7 @@
 "use client";
 import { CloseIcon, SortBottomIcon, TickIcon } from "@/common/Icons";
 import RadioInput from "@/common/RadioInput";
-import Modal from "@/components/profileComponent/Modal";
+import Modal from "@/components/Modal";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";

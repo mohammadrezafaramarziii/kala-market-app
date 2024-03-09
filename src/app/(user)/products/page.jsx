@@ -21,7 +21,7 @@ export default async function ProductsPage({searchParams}){
     );
     
     return(
-        <div className="w-full pb-[128px]">
+        <div className="w-full">
             
 
             <div className="w-full px-3 pb-3 pt-6 lg:p-6">
@@ -45,7 +45,7 @@ export default async function ProductsPage({searchParams}){
             <div className="w-full relative lg:grid lg:grid-cols-12 items-start">
 
 
-                <div className="border-y lg:border-none p-4 mt-5 sticky top-[144px] lg:top-[115px] z-50 bg-slate-50 lg:col-span-3">
+                <div className="border-y lg:border-none p-4 mt-5 sticky top-20 lg:top-[115px] z-50 bg-slate-50 lg:col-span-3">
                     <CategorySidebar />
                 </div>
 

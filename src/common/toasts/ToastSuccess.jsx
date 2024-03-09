@@ -19,6 +19,7 @@ export default function ToastSuccess(message){
         maxWidth: "none",
         minWidth:"none",
         width:"auto",
+        border: "2px solid rgb(0, 192, 115)"
       },
       duration:5000
     }

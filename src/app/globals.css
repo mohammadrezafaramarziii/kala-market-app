@@ -33,29 +33,41 @@
   }
 }
 
-@layer components{
-  .textField__input{
-    @apply w-full outline-none bg-transparent border px-4 h-14 rounded-xl text-sm text-slate-900 placeholder-slate-900/50
+@layer components {
+  .textField__input {
+    @apply w-full outline-none bg-transparent border px-4 h-14 rounded-xl text-sm text-secondary-800 placeholder-secondary-200;
   }
 
-  .btn{
-    @apply rounded-xl flex items-center justify-center duration-200
+  .btn {
+    @apply rounded-xl flex items-center justify-center duration-200;
   }
 
-  .btn--primary{
-    @apply disabled:bg-slate-300 h-14 bg-primary-900 text-white text-sm hover:bg-primary-700
+  .btn--primary {
+    @apply disabled:bg-slate-300 h-14 bg-primary-900 text-white text-sm hover:bg-primary-700;
   }
 
-  .btn--light{
-    @apply h-12 bg-slate-200 border border-transparent outline outline-transparent hover:outline-secondary-100/20 text-primary-900
+  .btn--light {
+    @apply h-12 bg-slate-200 border border-transparent outline outline-transparent hover:outline-secondary-100/20 text-primary-900;
   }
 
-  .btn--iconText{
-    @apply h-12 border border-transparent text-white text-sm gap-2 px-4 bg-primary-700 outline outline-transparent hover:outline-primary-200 duration-200
+  .btn--icon {
+    @apply w-8 h-8 text-white bg-primary-700 rounded-full outline outline-transparent hover:outline-primary-100/50 duration-200;
   }
 
-  .btn--icon{
-    @apply w-12 h-12 border border-transparent text-white text-sm bg-primary-700 outline outline-transparent hover:outline-primary-200 duration-200
+  .table__th {
+    @apply whitespace-nowrap text-right !font-normal text-xs text-secondary-500;
+  }
+
+  .table__td {
+    @apply whitespace-nowrap text-sm text-secondary-800 font-medium text-right py-5;
+  }
+
+  .badge__success {
+    @apply px-3 py-1 text-xs text-white bg-success rounded-full inline-block;
+  }
+  
+  .badge__error {
+    @apply px-3 py-1 text-xs text-white bg-error rounded-full inline-block;
   }
 }
 
@@ -78,7 +90,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 

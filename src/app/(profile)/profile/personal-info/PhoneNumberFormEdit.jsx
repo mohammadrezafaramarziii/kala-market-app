@@ -1,7 +1,7 @@
 "use client";
 import TextField from "@/common/TextField";
 import Loading from "@/common/loading/Loading";
-import Modal from "@/components/profileComponent/Modal";
+import Modal from "@/components/Modal";
 import { checkOtp, updateProfile } from "@/services/authService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
@@ -13,9 +13,9 @@ import { kalamehNumFont } from "@/constants/localFonts";
 import ToastError from "@/common/toasts/ToastError";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
 
-export default function PhoneNumberFormEdit({show, onClose, value}){
-    const { isPending:isUpdating, mutateAsync:mutateUpdateProfile } = useMutation({ mutationFn: updateProfile });
-    const { isPending : isCheckingOtp, mutateAsync : mutateCheckOtp } = useMutation({ mutationFn: checkOtp });
+export default function PhoneNumberFormEdit({ show, onClose, value }) {
+    const { isPending: isUpdating, mutateAsync: mutateUpdateProfile } = useMutation({ mutationFn: updateProfile });
+    const { isPending: isCheckingOtp, mutateAsync: mutateCheckOtp } = useMutation({ mutationFn: checkOtp });
     const queryClient = useQueryClient();
 
     const [otp, setOtp] = useState("")
@@ -29,13 +29,13 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
     }
 
     const updateProfileHandler = async () => {
-        if(otp) {
-            
+        if (otp) {
+
             setOtpErr("");
             try {
-                const { user } = await mutateCheckOtp({phoneNumber:value.phoneNumber , otp});
-                
-                if(user) {
+                const { user } = await mutateCheckOtp({ phoneNumber: value.phoneNumber, otp });
+
+                if (user) {
                     try {
                         const data = await mutateUpdateProfile({
                             name: value.name,
@@ -44,24 +44,24 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
                             biography: value.biography || ""
                         });
 
-                        if(data){
-                           closeHandler();
-                           ToastSuccess("شماره موبایل با موفقیت آپدیت شد");
-                           queryClient.invalidateQueries({queryKey:['get-user']});
+                        if (data) {
+                            closeHandler();
+                            ToastSuccess("شماره موبایل با موفقیت آپدیت شد");
+                            queryClient.invalidateQueries({ queryKey: ['get-user'] });
                         }
                     } catch (error) {
-                       ToastError(error?.response?.data?.message);
+                        ToastError(error?.response?.data?.message);
                     }
                 }
             } catch (error) {
                 setOtpErr(error?.response?.data?.message);
-            }            
+            }
         } else {
             setOtpErr("کد یکبار مصرف را وارد کنید")
         }
     }
     const formik = useFormik({
-        initialValues: {phoneNumber: ""},
+        initialValues: { phoneNumber: "" },
         onSubmit: updateProfileHandler,
         validationSchema: Yup.object({
             phoneNumber: Yup.string()
@@ -75,28 +75,32 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
         })
     })
 
-    return(
-        <Modal 
-            title="ویرایش شماره موبایل" 
+    return (
+        <Modal
+            title="ویرایش شماره موبایل"
             modalName="phoenumber-form-edit"
             show={show}
             onClose={closeHandler}
         >
             <p className="text-error text-sm my-4">برای ویرایش کد یکبار مصرف به شماره موبایل فعلی ارسال می شود</p>
 
-            <label className="text-sm mr-1 text-slate-500">شماره موبایل فعلی</label>
+            <label className="text-sm text-secondary-700 font-medium mb-2 mr-1 inline-block">شماره موبایل فعلی</label>
             <div className="textField__input flex items-center bg-slate-50 mb-6">
                 {toPersianDigit(value.phoneNumber)}
             </div>
 
-            <TextField 
-                value={formik.values.phoneNumber}
-                onChange={formik.handleChange}
-                name={'phoneNumber'}
-                label={'شماره موبایل جدید'}
-                inputClassName={'bg-slate-100'}
-                error={formik.errors.phoneNumber}
-           />
+            <div>
+                <label className="text-sm text-secondary-700 font-medium mb-2 mr-1 inline-block">
+                    شماره موبایل جدید
+                </label>
+                <TextField
+                    value={formik.values.phoneNumber}
+                    onChange={formik.handleChange}
+                    name={'phoneNumber'}
+                    inputClassName={'bg-slate-100'}
+                    error={formik.errors.phoneNumber}
+                />
+            </div>
 
             <div className="w-full flex flex-col gap-2 mt-6">
                 <div className="w-full max-w-[322px] mx-auto flex">
@@ -115,7 +119,7 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
                     containerStyle="w-full flex flex-row-reverse items-center justify-center gap-2"
                 />
                 {
-                    otpErr && 
+                    otpErr &&
                     <div className="w-full max-w-[322px] mx-auto flex ">
                         <span className="text-xs text-error mr-1 font-medium">
                             {otpErr}
@@ -123,16 +127,16 @@ export default function PhoneNumberFormEdit({show, onClose, value}){
                     </div>
                 }
             </div>
-           {
-            isUpdating || isCheckingOtp?
-            <div className="w-full btn btn--primary hover:outline-none mt-6">
-                <Loading />
-            </div>
-            :
-            <button type="submit"  onClick={formik.handleSubmit} className="btn btn--primary w-full mt-6">
-                ویرایش  
-            </button>
-           }
+            {
+                isUpdating || isCheckingOtp ?
+                    <div className="w-full btn btn--primary hover:outline-none mt-6">
+                        <Loading />
+                    </div>
+                    :
+                    <button type="submit" onClick={formik.handleSubmit} className="btn btn--primary w-full mt-6">
+                        ویرایش
+                    </button>
+            }
         </Modal>
     )
 }

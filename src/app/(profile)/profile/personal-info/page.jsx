@@ -1,5 +1,4 @@
 "use client";
-import Sectionbox from "@/components/profileComponent/Sectionbox";
 import TextField from "@/common/TextField";
 import { useGetUser } from "@/hooks/useAuth";
 import Loading from "@/common/loading/Loading";
@@ -13,14 +12,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOtp, updateProfile } from "@/services/authService";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
 import ToastError from "@/common/toasts/ToastError";
-import Skeleton from "react-loading-skeleton";
-import 'react-loading-skeleton/dist/skeleton.css'
+import TitleBar from "@/components/profileComponent/TitleBar";
+import Box from "@/components/profileComponent/Box";
+import { toPersianDate } from "@/utils/toPersianDate";
 
 
 const initialValues = {
-    name:"",
-    biography:"",
-    email:""
+    name: "",
+    biography: "",
+    email: ""
 };
 
 const validationSchema = Yup.object({
@@ -32,16 +32,20 @@ const validationSchema = Yup.object({
         .email("ایمیل وارد شده نادرست است")
 });
 
-export default function PersonalInfoPage(){
+export default function PersonalInfoPage() {
     const { data, isPending } = useGetUser();
     const { user } = data || {};
     const queryClient = useQueryClient();
-    const userObj = ["name","biography","email",];
+    const userObj = [
+        { label: "name", title: "نام و نام خانوادگی" },
+        { label: "biography", title: "بیوگرافی" },
+        { label: "email", title: "ایمیل" }
+    ];
 
     const [showPhoneNumberModal, setShowPhoneNumberModal] = useState(false);
 
-    const { isPending:isUpdatingProfile, mutateAsync : mutateUpdateProfile } = useMutation({ mutationFn: updateProfile });
-    
+    const { isPending: isUpdatingProfile, mutateAsync: mutateUpdateProfile } = useMutation({ mutationFn: updateProfile });
+
     const updateProfileHandler = async () => {
         const { name, email, biography } = formik.values;
 
@@ -54,7 +58,7 @@ export default function PersonalInfoPage(){
             });
 
             ToastSuccess(message);
-            queryClient.invalidateQueries({queryKey:['get-user']});
+            queryClient.invalidateQueries({ queryKey: ['get-user'] });
 
         } catch (error) {
             ToastError(error?.response?.data?.message);
@@ -62,195 +66,133 @@ export default function PersonalInfoPage(){
     }
 
     const formik = useFormik({
-        initialValues, 
+        initialValues,
         onSubmit: updateProfileHandler,
         validationSchema,
         validateOnMount: true
     });
 
 
-    const { isPending : isGetingOtp, mutateAsync: mutateSendOtp } = useMutation({ mutationFn: getOtp });
+    const { isPending: isGetingOtp, mutateAsync: mutateSendOtp } = useMutation({ mutationFn: getOtp });
 
     const getOtpPhoneNumberHandler = async () => {
         try {
-            const res = await mutateSendOtp({phoneNumber: user.phoneNumber});
+            const res = await mutateSendOtp({ phoneNumber: user.phoneNumber });
         } catch (error) {
-            if(error?.response?.data?.statusCode === 403 && error?.response?.data?.message === "کد اعتبارسنجی ارسال نشد") {
+            if (error?.response?.data?.statusCode === 403 && error?.response?.data?.message === "کد اعتبارسنجی ارسال نشد") {
                 setShowPhoneNumberModal(true);
             }
         }
     }
 
-    useEffect(()=>{
-        if(!isPending){
-            for(let i in userObj) {
-                formik.setFieldValue(userObj[i], user[userObj[i]]);
+    useEffect(() => {
+        if (!isPending) {
+            for (let i in userObj) {
+                formik.setFieldValue(userObj[i].label, user[userObj[i].label]);
             }
         }
-    },[data,user])
+    }, [data, user])
 
 
-    return(
-        <div className="p-6 flex flex-col gap-8">
-            <Sectionbox title={'اطلاعات کاربری'}>
-                <div className="w-full  flex flex-col gap-4">
+    if (isPending) {
+        return (
+            <div className="w-full h-full max-[1024px]:min-h-[calc(100vh-3rem)] flex items-center justify-center">
+                <Loading />
+            </div>
+        )
+    }
 
-                    {
-                        isPending ?
-                        <div className="w-full flex flex-col gap-2">
-                            <Skeleton 
-                                containerClassName="!w-[150px] !h-5 !block"
-                                className="!w-full !h-5 !block !rounded-lg"
-                            />          
-                            <Skeleton 
-                                containerClassName="!w-full !h-12 !block"
-                                className="!w-full !h-12 !block !rounded-xl"
-                            />          
+    return (
+        <div>
+            <TitleBar title={'اطلاعات کاربری'} />
+
+            <div className="mt-8">
+                <Box title={'ویرایش اطلاعات کاربری'}>
+                    <div className="w-full grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        {userObj.map((obj, index) => {
+                            return (
+                                <div key={index}>
+                                    <label className="text-sm text-secondary-700 font-medium mb-2 mr-1 inline-block">
+                                        {obj.title}
+                                    </label>
+                                    <TextField
+                                        onChange={formik.handleChange}
+                                        value={formik.values[obj.label]}
+                                        name={obj.label}
+                                        error={formik.errors[obj.label] && formik.touched[obj.label] && formik.errors[obj.label]}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </div>
+                            )
+                        })}
+
+                        <div>
+                            <label className="text-sm text-secondary-700 font-medium mb-2 mr-1 inline-block">
+                                تاریخ عضویت
+                            </label>
+                            <div className="textField__input flex items-center">
+                                {toPersianDate(user?.createdAt)}
+                            </div>
                         </div>
-                        :
-                        <TextField 
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            name={'name'}
-                            label={'نام و نام خانوادگی'}
-                            inputClassName={'bg-slate-100'}
-                            error={formik.errors.name && formik.touched.name && formik.errors.name}
-                        />
-                    }
-                    {
-                        isPending ?
-                        <div className="w-full flex flex-col gap-2">
-                            <Skeleton 
-                                containerClassName="!w-[150px] !h-5 !block"
-                                className="!w-full !h-5 !block !rounded-lg"
-                            />          
-                            <Skeleton 
-                                containerClassName="!w-full !h-12 !block"
-                                className="!w-full !h-12 !block !rounded-xl"
-                            />          
-                        </div>
-                        :
-                        <TextField 
-                            value={formik.values.biography}
-                            onChange={formik.handleChange}
-                            name={'biography'}
-                            label={'بیوگرافی'}
-                            inputClassName={'bg-slate-100'}
-                        />
-                    }
-                    {
-                        isPending ?
-                        <div className="w-full flex flex-col gap-2">
-                            <Skeleton 
-                                containerClassName="!w-[150px] !h-5 !block"
-                                className="!w-full !h-5 !block !rounded-lg"
-                            />          
-                            <Skeleton 
-                                containerClassName="!w-full !h-12 !block"
-                                className="!w-full !h-12 !block !rounded-xl"
-                            />          
-                        </div>
-                        :
-                        <TextField 
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            name={'email'}
-                            label={'ایمیل'}
-                            inputClassName={'bg-slate-100'}
-                            error={formik.errors.email && formik.touched.email && formik.errors.email}
-                        />
-                    }
-                    
-                    {
-                        isPending ?
-                        <div className="w-full flex gap-4 justify-center">
-                            <Skeleton 
-                                containerClassName="!w-[108px] !h-12 !block"
-                                className="!w-full !h-12 !block !rounded-xl"
-                            />          
-                            <Skeleton 
-                                containerClassName="!w-[108px] !h-12 !block"
-                                className="!w-full !h-12 !block !rounded-xl"
-                            />            
-                        </div>
-                        :
-                        <div className="flex items-center justify-center gap-4">
-                            {
-                                isUpdatingProfile ?
-                                <div className="btn btn--primary hover:outline-transparent !w-[108px]">
+                    </div>
+
+                    <div className="w-full mt-8">
+                        {
+                            isUpdatingProfile ?
+                                <div className="btn btn--primary hover:outline-transparent !w-full max-w-[200px]">
                                     <Loading />
                                 </div>
                                 :
-                                <button 
-                                    type="submit" 
+                                <button
+                                    type="submit"
+                                    onClick={formik.handleSubmit} className="!w-full max-w-[200px] btn btn--primary"
                                     disabled={
-                                        formik.values.name === user.name && 
+                                        formik.values.name === user.name &&
                                         formik.values.email === user.email &&
-                                        formik.values.biography === user.biography 
+                                        formik.values.biography === user.biography
                                         &&
                                         true
                                     }
-                                    onClick={formik.handleSubmit} 
-                                    className="btn btn--primary !w-[108px]"
                                 >
-                                    ثبت تغییرات
+                                    ویرایش
                                 </button>
-                            }
-                            <button 
-                                onClick={()=>{
-                                    queryClient.invalidateQueries({queryKey:['get-user']});
-                                    for(let i in userObj) {
-                                        formik.setFieldValue(userObj[i], user[userObj[i]]);
-                                    }
-                                }} 
-                                className="btn btn--light !w-[108px] !text-sm"
-                            >
-                                لغو تغییرات
-                            </button>
-                        </div>
-                    }
-                </div>
-            </Sectionbox>
-
-            <PhoneNumberFormEdit
-                show={showPhoneNumberModal}
-                onClose={()=>setShowPhoneNumberModal(false)}
-                value={user || {}}
-            />
-
-            <Sectionbox title={'ویرایش شماره موبایل'}>
-                
-                {
-                    isPending ?
-                    <div className="w-full flex flex-col gap-2 mb-6">
-                        <Skeleton 
-                            containerClassName="!w-[150px] !h-5 !block"
-                            className="!w-full !h-5 !block !rounded-lg"
-                        />          
-                        <Skeleton 
-                            containerClassName="!w-full !h-12 !block"
-                            className="!w-full !h-12 !block !rounded-xl"
-                        />          
-                    </div>
-                    :
-                    <>
-                    <label className="text-sm mr-1 text-slate-500 mb-2 block">شماره موبایل فعلی</label>
-                    <div className="textField__input flex justify-between items-center bg-slate-50 mb-6">
-                        {toPersianDigit(user.phoneNumber)}
-                        {
-                            isGetingOtp ?
-                            <div className="px-4">
-                                <Loading />
-                            </div>
-                            :
-                            <button onClick={getOtpPhoneNumberHandler} className="btn">
-                                <EditIcon className={'text-secondary-700 w-5 h-5'}/>
-                            </button>
                         }
-                    </div> 
-                    </>       
-                }
-            </Sectionbox>
+                    </div>
+                </Box>
+            </div>
+
+            <div className="mt-12">
+                <PhoneNumberFormEdit
+                    show={showPhoneNumberModal}
+                    onClose={() => setShowPhoneNumberModal(false)}
+                    value={user || {}}
+                />
+
+                <Box title={'ویرایش شماره موبایل'}>
+                    <div>
+                        <div>
+                            <label className="text-sm text-secondary-700 font-medium mb-2 mr-1 inline-block">
+                                شماره موبایل فعلی
+                            </label>
+                            <div className="textField__input flex items-center justify-between">
+                                <span>
+                                    {toPersianDigit(user?.phoneNumber)}
+                                </span>
+                                {
+                                    isGetingOtp ?
+                                        <div className="px-4">
+                                            <Loading />
+                                        </div>
+                                        :
+                                        <button onClick={getOtpPhoneNumberHandler}>
+                                            <EditIcon className={'w-5 h-5'} />
+                                        </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </Box>
+            </div>
         </div>
     )
 }

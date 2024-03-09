@@ -12,7 +12,6 @@ export default function CartItem({cartItem}) {
     const { isPending: isRemoving, mutateAsync:mutateRemoveFromCart } = useRemoveFromCart();
     const { isPending: isAdding, mutateAsync:mutateAddToCart } = useAddToCart();
     const queryClient = useQueryClient();
-    
 
     const removeCartItemHandler = async () => {
         try {
@@ -29,7 +28,6 @@ export default function CartItem({cartItem}) {
     const addToCartHandler = async () => {
         try {
             const { message } = await mutateAddToCart(cartItem._id);
-            ToastSuccess(message);
             queryClient.invalidateQueries({queryKey:["get-user"]});
         } catch (error) {
             ToastError(error?.response?.data?.message);
@@ -38,7 +36,7 @@ export default function CartItem({cartItem}) {
 
 
     return (
-        <div className="w-full flex flex-col gap-4 p-6 bg-white rounded-2xl items-start">
+        <div className="w-full flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-200 items-start">
 
             <div className="w-full flex flex-col min-[430px]:flex-row lg:items-center items-center min-[430px]:items-start gap-3">
                 <div className="flex items-center justify-center w-[80px] h-[80px] lg:w-[110px] lg:h-[110px] bg-slate-100 rounded-xl overflow-hidden">
@@ -60,20 +58,20 @@ export default function CartItem({cartItem}) {
                         {cartItem.brand}
                     </span>
                     <span className="text-[10px] lg:text-xs text-secondary-600">
-                        گارانتی سلامت فیزیکی 18 ماهه محصول
+                        گارانتی یک ساله کالا مارکت
                     </span>
                 </div>
             </div>
 
             <div className="w-full flex flex-col min-[430px]:flex-row min-[430px]:items-end justify-between gap-3">
                 <div>
-                    <div className="w-full flex items-center justify-between gap-5 lg:gap-6 px-3 h-10 btn bg-slate-200">
+                    <div className="w-full flex items-center justify-between gap-5 lg:gap-6 px-3 h-10 btn !rounded-lg border border-slate-200">
                         <button 
-                            disabled={cartItem.countInStock <= 3} 
+                            disabled={cartItem.countInStock === cartItem.quantity} 
                             onClick={addToCartHandler}
                             className="btn text-success disabled:text-secondary-200"
                         >
-                            <PlusIcon className={'w-5 h-5'}/>
+                            <PlusIcon className={'w-4 h-4'}/>
                         </button>
                         {
                             isAdding || isRemoving ? 
@@ -87,9 +85,9 @@ export default function CartItem({cartItem}) {
                             <button onClick={removeCartItemHandler} className="btn text-error">
                                 {
                                     cartItem.quantity === 1 ?
-                                    <TrashIcon className={'w-5 h-5'}/>
+                                    <TrashIcon className={'w-4 h-4'}/>
                                     :
-                                    <MinusIcon className={'w-5 h-5'}/>
+                                    <MinusIcon className={'w-4 h-4'}/>
                                 }
                             </button>
                         }

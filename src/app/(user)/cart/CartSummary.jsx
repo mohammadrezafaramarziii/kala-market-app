@@ -21,8 +21,8 @@ export default function CartSummary({payDetail}) {
     }
 
     return (
-        <div className="bg-white rounded-xl p-6 z-50"> 
-            <div className="text-lg text-secondary-900 font-semibold border-b pb-4 mb-5">
+        <div className="bg-white border border-slate-200 rounded-xl p-6 z-50"> 
+            <div className="text-lg text-secondary-800 font-semibold border-b pb-4 mb-5">
                 اطلاعات پرداخت
             </div>
 
@@ -61,16 +61,16 @@ export default function CartSummary({payDetail}) {
                     </div>
                 }
                 <div className="hidden lg:block mt-8">
-                    <button onClick={createPaymentHandler} className="btn btn--primary">
+                    <button onClick={createPaymentHandler} className="!w-full btn btn--primary">
                         تایید و تکمیل سفارش
                     </button>
                 </div>
             </div>
                 
-            <div className="fixed bottom-[128px] right-0 w-full px-6 lg:hidden z-[9999]">
-                <div className="grid grid-cols-2 shadow-lg items-center justify-between rounded-2xl w-full bg-white border p-4">
-                    <div className="">
-                        <button onClick={createPaymentHandler} className="btn btn--primary">
+            <div className="fixed bottom-20 right-0 w-full lg:hidden z-[99999]">
+                <div className="grid grid-cols-2 items-center justify-between w-full bg-white shadow-[0_-10px_25px_-5px_rgb(0,0,0,0.1)] p-4">
+                    <div className="w-full">
+                        <button onClick={createPaymentHandler} className="!w-full btn btn--primary">
                             تایید و تکمیل سفارش
                         </button>
                     </div>
@@ -80,7 +80,7 @@ export default function CartSummary({payDetail}) {
                             مبلغ قابل پرداخت
                         </span>
                         <span className="flex items-center gap-1">
-                            <div className="font-medium">{toPersianDigit(numberWithCommas(totalPrice))}</div>
+                            <div className="font-semibold text-lg">{toPersianDigit(numberWithCommas(totalPrice))}</div>
                             <span className="text-xs">تومان</span>
                         </span>
                     </div>

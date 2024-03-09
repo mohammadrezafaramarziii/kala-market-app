@@ -14,7 +14,7 @@ export default function CartPage() {
 
   if(isPending) {
     return(
-      <div className="w-full h-[calc(100vh-3rem-72px)] !pb-[128px] p-4 lg:p-10">
+      <div className="w-full h-[calc(100vh-3rem-81px-80px)] p-4 lg:p-10">
         <div className="w-full h-full flex flex-col items-center justify-center">
           <Loading />
         </div>
@@ -25,7 +25,7 @@ export default function CartPage() {
 
   if(!user || !data) {
     return(
-      <div className="w-full h-[calc(100vh-3rem-72px)] !pb-[128px] p-4 lg:p-10">
+      <div className="w-full h-[calc(100vh-3rem-81px-80px)] p-4 lg:p-10">
         <div className="w-full h-full flex flex-col items-center justify-center">
           <div className="text-lg lg:text-xl font-semibold text-secondary-800">
             لطفا ابتدا وارد حساب کاربری خود شوید!
@@ -41,7 +41,7 @@ export default function CartPage() {
 
   if(!user.cart?.products || user.cart?.products.length === 0) {
     return(
-      <div className="w-full h-[calc(100vh-3rem-72px)] !pb-[128px] p-4 lg:p-10">
+      <div className="w-full h-[calc(100vh-3rem-81px-80px)]">
         <div className="w-full h-full flex flex-col items-center justify-center">
           <div className="mb-4">
             <Image
@@ -66,8 +66,8 @@ export default function CartPage() {
 
 
   return(
-    <div className="w-full p-4 !pb-[calc(128px+82px)] lg:!p-10">
-      <div className="w-full p-6">
+    <div className="w-full p-6 xl:max-w-6xl mx-auto pb-[88px] lg:p-6">
+      <div className="w-full">
 
         {/* ***** title ***** */}
         <h3 className="w-full flex items-center justify-between mb-5 border-b pb-4">
@@ -94,11 +94,8 @@ export default function CartPage() {
           {/* ***** cart summary ***** */}
           <div className="py-6 lg:p-0 lg:col-span-4 sticky top-[144px]">
             <CartSummary payDetail={cart.payDetail}/>
-            <div className="hidden lg:block text-xs text-secondary-500 px-3 !leading-5 mt-4">
+            <div className="block text-xs text-secondary-500 px-3 !leading-5 mt-4">
               هزینه این سفارش هنوز پرداخت نشده‌ و در صورت اتمام موجودی، کالاها از سبد خرید حذف می‌شوند 
-            </div>
-            <div className="border rounded-xl text-sm text-secondary-600 p-4 mt-4">
-              {toPersianDigit("35 هزارتومان هزینه ارسال به سراسر ایران")} 
             </div>
           </div>
 
