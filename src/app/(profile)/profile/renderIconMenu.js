@@ -3,6 +3,7 @@ import {
   ListIcon,
   OrderBagIcon,
   UserIcon,
+  BoxIcon
 } from "@/common/Icons";
 
 export function renderIconMenu(value) {
@@ -17,6 +18,10 @@ export function renderIconMenu(value) {
 
     case "orders":
       return <ListIcon className="w-5 h-5" />;
+      break;
+
+    case "paidProducts":
+      return <BoxIcon className="w-5 h-5" />;
       break;
 
     default:

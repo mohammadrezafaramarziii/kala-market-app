@@ -1,0 +1,33 @@
+"use client";
+import Modal from "@/components/Modal";
+import { logout } from "@/services/authService";
+
+export default function LogoutModal({ show, onClose }) {
+
+    const logoutHandler = async () => {
+        await logout();
+        document.location.href = "/";
+    }
+
+    return (
+        <Modal
+            show={show}
+            onClose={onClose}
+            modalName={'modal-logout'}
+            title="از حساب کاربری خارج می‌شوید؟"
+        >
+            <p className="text-sm leading-[24px] mb-5 text-secondary-800 font-medium">
+                با خروج از حساب کاربری، از تمامی حساب های ادمین و خریدار خارج می شوید
+            </p>
+
+            <div className="w-full flex items-center gap-3">
+                <button onClick={logoutHandler} className="!h-12 btn btn--primary !w-auto px-5">
+                    خروج از حساب
+                </button>
+                <button onClick={onClose} className="btn btn--light px-5">
+                    انصراف
+                </button>
+            </div>
+        </Modal>
+    )
+}

@@ -5,23 +5,23 @@ import { numberWithCommas } from "@/utils/numberWithCommas";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export default function CartSummary({payDetail}) {
+export default function CartSummary({ payDetail }) {
     const { totalGrossPrice, totalOffAmount, totalPrice } = payDetail;
-    const { mutateAsync, isPending } = useMutation({mutationFn:createPayment});
+    const { mutateAsync, isPending } = useMutation({ mutationFn: createPayment });
     const queryClient = useQueryClient();
 
     const createPaymentHandler = async () => {
         try {
             const { message } = await mutateAsync();
             ToastSuccess(message);
-            queryClient.invalidateQueries({queryKey:['get-user']});
+            queryClient.invalidateQueries({ queryKey: ['get-user'] });
         } catch (error) {
             ToastError(error?.response?.data?.message);
         }
     }
 
     return (
-        <div className="bg-white border border-slate-200 rounded-xl p-6 z-50"> 
+        <div className="bg-white rounded-xl shadow-custome p-6 z-50">
             <div className="text-lg text-secondary-800 font-semibold border-b pb-4 mb-5">
                 اطلاعات پرداخت
             </div>
@@ -46,10 +46,10 @@ export default function CartSummary({payDetail}) {
                         <span>تومان</span>
                     </span>
                 </div>
-                
+
                 {
                     totalOffAmount !== 0 &&
-                
+
                     <div className="w-full flex items-center justify-between text-xs lg:text-sm text-error">
                         <span className="font-semibold">
                             سود شما از این خرید
@@ -66,7 +66,7 @@ export default function CartSummary({payDetail}) {
                     </button>
                 </div>
             </div>
-                
+
             <div className="fixed bottom-20 right-0 w-full lg:hidden z-[99999]">
                 <div className="grid grid-cols-2 items-center justify-between w-full bg-white shadow-[0_-10px_25px_-5px_rgb(0,0,0,0.1)] p-4">
                     <div className="w-full">

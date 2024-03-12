@@ -1,32 +1,29 @@
-import { CartIcon, CategoryIcon, HomeProfileIcon, OrderBagIcon, UserIcon, UsersIcon } from "@/common/Icons";
+import {
+  BoxIcon,
+  CategoryIcon,
+  HomeProfileIcon,
+  UsersIcon,
+} from "@/common/Icons";
 
-export function renderIconMenu(value){
-    switch (value) {
-        case "home":
-            return(
-                <HomeProfileIcon className="w-6 h-6"/>
-            )
-            break;
-    
-        case "users":
-            return(
-                <UsersIcon className="w-6 h-6"/>
-            )
-            break;
-    
-        case "products":
-            return(
-                <CartIcon className="w-6 h-6"/>
-            )
-            break;
-    
-        case "categories":
-            return(
-                <CategoryIcon className="w-6 h-6"/>
-            )
-            break;
-    
-        default:
-            break;
-    }
+export function renderIconMenu(value) {
+  switch (value) {
+    case "home":
+      return <HomeProfileIcon className="w-5 h-5" />;
+      break;
+
+    case "users":
+      return <UsersIcon className="w-5 h-5" />;
+      break;
+
+    case "products":
+      return <BoxIcon className="w-5 h-5" />;
+      break;
+
+    case "categories":
+      return <CategoryIcon className="w-5 h-5" />;
+      break;
+
+    default:
+      break;
+  }
 }

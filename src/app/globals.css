@@ -65,9 +65,13 @@
   .badge__success {
     @apply px-3 py-1 text-xs text-white bg-success rounded-full inline-block;
   }
-  
+
   .badge__error {
     @apply px-3 py-1 text-xs text-white bg-error rounded-full inline-block;
+  }
+  
+  .badge__primary {
+    @apply px-3 py-1 text-xs text-white bg-primary-900 rounded-full inline-block;
   }
 }
 
@@ -97,6 +101,7 @@ input[type="number"] {
 /* width */
 *::-webkit-scrollbar {
   width: 6px;
+  height: 8px;
 }
 
 /* Track */

@@ -20,12 +20,14 @@ export default function HomeProfile() {
     const [paidProducts, setPaidProducts] = useState([]);
     const { data: productsData, isPending: isGettingProduct } = useGetProducts();
     const { products } = productsData || [];
-    console.log(user);
 
     useEffect(() => {
         if (!isPending) {
             let paids = [];
-            payments.forEach(payment => {
+            
+            payments
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .forEach(payment => {
                 payment.cart.productDetail.forEach((product) => {
                     paids.push(product);
                 })
@@ -123,9 +125,7 @@ export default function HomeProfile() {
                                         <div className="flex-1 flex items-center gap-3">
                                             <div>
                                                 <div className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg bg-slate-100">
-                                                    {/* <Image
-                                            src={'/images'}
-                                        /> */}
+                                                    
                                                 </div>
                                             </div>
                                             <div className="flex flex-col gap-1 md:gap-2">

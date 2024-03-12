@@ -36,7 +36,7 @@ export default function CartItem({cartItem}) {
 
 
     return (
-        <div className="w-full flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-200 items-start">
+        <div className="w-full flex flex-col gap-4 p-6 bg-white rounded-xl shadow-custome items-start">
 
             <div className="w-full flex flex-col min-[430px]:flex-row lg:items-center items-center min-[430px]:items-start gap-3">
                 <div className="flex items-center justify-center w-[80px] h-[80px] lg:w-[110px] lg:h-[110px] bg-slate-100 rounded-xl overflow-hidden">

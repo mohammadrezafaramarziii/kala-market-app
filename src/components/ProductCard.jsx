@@ -43,7 +43,7 @@ export default function ProductCard({ product, className, classNamePriceBox, isL
     }
 
     return(
-        <div className={`w-full ${className} shadow-lg relative duration-200 bg-white rounded-xl overflow-hidden p-6`}>
+        <div className={`w-full ${className} shadow-custome relative duration-200 bg-white rounded-xl overflow-hidden p-6`}>
            <div className={`w-full h-full flex flex-col gap-4`}>
                 
                 {

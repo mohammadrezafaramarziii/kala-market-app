@@ -7,6 +7,7 @@ import TitleBar from "@/components/profileComponent/TitleBar";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function PaymentsPage() {
     const { data, isPending } = useGetUser();
@@ -60,7 +61,7 @@ export default function PaymentsPage() {
 
                     <div className="w-full mt-8">
                         {/* in desktop */}
-                        <table className="w-full hidden lg:table">
+                        <table className="w-full hidden xl:table">
                             <thead className="w-full h-12">
                                 <tr>
                                     {userPaymentsTHeads.map((item) => {
@@ -100,9 +101,9 @@ export default function PaymentsPage() {
                                                 </div>
                                             </td>
                                             <td className="table__td">
-                                                <div className={payment.isPaid ? "badge__success" : "badge__error"}>
-                                                    {payment.isPaid ? "پرداخت شده" : "در انتظار پرداخت"}
-                                                </div>
+                                                <Link href={`/profile/payments/${payment.invoiceNumber}`} className="btn btn--primary !w-[160px] !h-10">
+                                                    جزئیات سفارش
+                                                </Link>
                                             </td>
                                         </tr>
                                     )
@@ -112,7 +113,7 @@ export default function PaymentsPage() {
 
 
                         {/* in mobile */}
-                        <div className="w-full lg:hidden space-y-4">
+                        <div className="w-full xl:hidden space-y-4">
                             {payments.map((payment, index) => {
                                 return (
                                     <div key={index} className="w-full border border-slate-100 rounded-lg p-4 space-y-4">
@@ -158,6 +159,12 @@ export default function PaymentsPage() {
                                                     </div>
                                                 )
                                             })}
+                                        </div>
+
+                                        <div>
+                                            <Link href={`/profile/payments/${payment.invoiceNumber}`} className="w-full btn btn--primary !h-10 !text-xs">
+                                                جزئیات سفارش
+                                            </Link>
                                         </div>
                                     </div>
                                 )

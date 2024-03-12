@@ -235,3 +235,21 @@ export function UserSolidIcon(props) {
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><circle cx="12" cy="6" r="4" fill="currentColor"></circle><path fill="currentColor" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5"></path></svg>
     )
   }
+  
+export function ImageIcon(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 256 256" {...props}><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.233" transform="scale(3.77953)"><rect width="59.267" height="59.267" x="4.233" y="4.233" ry="8.467"></rect><path d="m 25.4,33.866667 c -12.7,0 -16.9333334,8.466665 -21.1666669,8.466665"></path><path d="m 25.4,33.866667 c 12.7,0 17.582797,8.466665 25.399999,8.466665"></path><path d="M 63.5,38.099999 C 48.683332,38.099998 46.566666,50.8 38.1,50.8"></path><circle cx="46.567" cy="21.167" r="8.467"></circle></g></svg>
+  )
+}
+
+export function EyeIcon(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.275 15.296C2.425 14.192 2 13.639 2 12c0-1.64.425-2.191 1.275-3.296C4.972 6.5 7.818 4 12 4c4.182 0 7.028 2.5 8.725 4.704C21.575 9.81 22 10.361 22 12c0 1.64-.425 2.191-1.275 3.296C19.028 17.5 16.182 20 12 20c-4.182 0-7.028-2.5-8.725-4.704Z" opacity=".5"></path><path d="M15 12a3 3 0 1 1-6 0a3 3 0 0 1 6 0Z"></path></g></svg>
+  )
+}
+
+export function AddCircleIcon(props) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10" opacity=".5"></circle><path stroke-linecap="round" d="M15 12h-3m0 0H9m3 0V9m0 3v3"></path></g></svg>
+  )
+}

@@ -1,5 +1,5 @@
 [
-    {"title": "صفحه اصلی", "link":"/admin", "label":"home"},
+    {"title": "داشبورد", "link":"/admin", "label":"home"},
     {"title": "کاربران", "link":"/admin/users", "label":"users"},
     {"title": "دسته بندی", "link":"/admin/categories", "label":"categories"},
     {"title": "محصولات", "link":"/admin/products", "label":"products"}
