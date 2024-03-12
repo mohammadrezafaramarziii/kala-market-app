@@ -1,9 +1,13 @@
 "use client"
+import { useGetUser } from "@/hooks/useAuth";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Category(){
+    const { data, isPending } = useGetUser();
+    const { user } = data || {};
+
     const menuItems = [
         "محصولات تخفیف دار",
         "محصولات",
@@ -45,6 +49,14 @@ export default function Category(){
                             </li>
                         )
                     })
+                }
+                {
+                    !isPending && user.role &&
+                    <li className="text-xs text-secondary-400 hover:text-primary-900 duration-200">
+                        <Link href={'/admin'}>
+                            پنل ادمین
+                        </Link>
+                    </li>
                 }
             </ul>
         </div>

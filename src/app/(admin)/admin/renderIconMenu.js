@@ -2,6 +2,7 @@ import {
   BoxIcon,
   CategoryIcon,
   HomeProfileIcon,
+  ListIcon,
   UsersIcon,
 } from "@/common/Icons";
 
@@ -23,6 +24,10 @@ export function renderIconMenu(value) {
       return <CategoryIcon className="w-5 h-5" />;
       break;
 
+    case "payments":
+        return <ListIcon className="w-5 h-5" />;
+        break;
+        
     default:
       break;
   }

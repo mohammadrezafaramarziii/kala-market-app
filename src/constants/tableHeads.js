@@ -21,7 +21,7 @@ export const userPaymentsTHeads = [
     },
     {
         id:6,
-        label:"وضعیت پرداخت"
+        label:""
     }
 ]
 
@@ -108,4 +108,39 @@ export const adminCategoriesTHeads = [
         id:6,
         label:""
     },
+]
+
+export const adminPaymentsTHeads = [
+    {
+        id:1,
+        label:"ردیف"
+    },
+    {
+        id:2,
+        label:"شماره فاکتور"
+    },
+    {
+        id:3,
+        label:"نام کاربر"
+    },
+    {
+        id:4,
+        label:"شماره موبایل کاربر"
+    },
+    {
+        id:5,
+        label:"مبلغ سفارش"
+    },
+    {
+        id:6,
+        label:"تاریخ سفارش"
+    },
+    {
+        id:7,
+        label:"وضعیت سفارش"
+    },
+    {
+        id:8,
+        label:""
+    }
 ]
