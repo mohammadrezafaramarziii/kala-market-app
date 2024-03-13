@@ -52,7 +52,7 @@ export default function HomeProfile() {
             {/* welcome message */}
             <div className="py-4 lg:py-6 sm:flex items-center justify-between">
                 <h2 className="text-lg lg:text-2xl text-secondary-800 font-bold">
-                    {toPersianDigit(`${user?.name} عزیز، خوش آمدید`)}
+                    {toPersianDigit(`${user?.name || "کاربر"} عزیز، خوش آمدید`)}
                 </h2>
                 <span className="text-sm text-secondary-400">
                     امروز {toPersianDate(new Date())}
@@ -124,8 +124,18 @@ export default function HomeProfile() {
                                     <div key={product._id} className="w-full flex flex-col gap-3 md:flex-row lg:justify-between lg:items-center p-4 border border-slate-100 rounded-lg">
                                         <div className="flex-1 flex items-center gap-3">
                                             <div>
-                                                <div className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg bg-slate-100">
-                                                    
+                                                <div className={`w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg ${!product.imageLink && "bg-slate-100"}`}>
+                                                    {
+                                                        product.imageLink &&
+                                                        <Image
+                                                            src={`/images/${product.imageLink}`}
+                                                            alt={product.title}
+                                                            width={1000}
+                                                            height={1000}
+                                                            priority
+                                                            className="w-full h-full mix-blend-multiply"
+                                                        />
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="flex flex-col gap-1 md:gap-2">
@@ -174,9 +184,9 @@ export default function HomeProfile() {
                         </div>
 
                         <div className="w-full flex justify-center">
-                            <button className="!w-full btn btn--light !text-xs max-w-[150px] text-primary-900">
+                            <Link href={'/profile/paid-products'} className="!w-full btn btn--light !text-xs max-w-[150px] text-primary-900">
                                 مشاهده همه...
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </Box>
@@ -195,8 +205,18 @@ export default function HomeProfile() {
                                             <div key={product._id} className="w-full flex flex-col gap-3 md:flex-row lg:justify-between lg:items-center p-4 border border-slate-100 rounded-lg">
                                                 <div className="flex-1 flex items-center gap-3">
                                                     <div>
-                                                        <div className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg bg-slate-100">
-
+                                                        <div className={`w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg ${!product.imageLink && "bg-slate-100"}`}>
+                                                            {
+                                                                product.imageLink &&
+                                                                <Image
+                                                                    src={`/images/${product.imageLink}`}
+                                                                    alt={product.title}
+                                                                    width={1000}
+                                                                    height={1000}
+                                                                    priority
+                                                                    className="w-full h-full mix-blend-multiply"
+                                                                />
+                                                            }
                                                         </div>
                                                     </div>
                                                     <div className="flex flex-col gap-1 md:gap-2">

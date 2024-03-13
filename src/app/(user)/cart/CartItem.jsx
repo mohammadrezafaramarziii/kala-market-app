@@ -40,14 +40,26 @@ export default function CartItem({cartItem}) {
 
             <div className="w-full flex flex-col min-[430px]:flex-row lg:items-center items-center min-[430px]:items-start gap-3">
                 <div className="flex items-center justify-center w-[80px] h-[80px] lg:w-[110px] lg:h-[110px] bg-slate-100 rounded-xl overflow-hidden">
-                    <Image
-                        src={'/images/logo-sm.svg'}
-                        alt=""
-                        width={1000}
-                        height={1000}
-                        priority
-                        className="w-[35px] opacity-20"
-                    />
+                    {
+                        cartItem.imageLink ?
+                        <Image
+                            src={`/images/${cartItem.imageLink}`}
+                            alt={cartItem.title}
+                            width={1000}
+                            height={1000}
+                            priority
+                            className="w-full"
+                        />
+                        :
+                        <Image
+                            src={'/images/logo-sm.svg'}
+                            alt=""
+                            width={1000}
+                            height={1000}
+                            priority
+                            className="w-[35px] opacity-20"
+                        />
+                    }
                 </div>
 
                 <div className="flex-1 flex flex-col gap-2">

@@ -5,7 +5,7 @@ import TextField from "@/common/TextField";
 import Loading from "@/common/loading/Loading";
 import { useRouter } from "next/navigation";
 import { completeProfile } from "@/services/authService";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
@@ -14,12 +14,14 @@ import ToastError from "@/common/toasts/ToastError";
 export default function CompleteProfileForm() {
     const router = useRouter();
     const { data, error, isPending, mutateAsync } = useMutation({ mutationFn: completeProfile });
+    const queryClient = useQueryClient();
 
     const completeProfileHandler = async () => {
         try {
             const { message } = await mutateAsync({ name: formik.values.name, email: formik.values.email });
             ToastSuccess("به کالا مارکت خوش آمدید");
             router.replace("/");
+            queryClient.invalidateQueries({queryKey:["get-user"]});
         } catch (error) {
             ToastError(error?.response?.data?.message);
         }

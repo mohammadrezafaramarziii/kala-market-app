@@ -1,6 +1,7 @@
 import {
   BoxIcon,
   CategoryIcon,
+  DiscountIcon,
   HomeProfileIcon,
   ListIcon,
   UsersIcon,
@@ -26,6 +27,10 @@ export function renderIconMenu(value) {
 
     case "payments":
         return <ListIcon className="w-5 h-5" />;
+        break;
+        
+    case "coupons":
+        return <DiscountIcon className="w-5 h-5" />;
         break;
         
     default:

@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
         <Toaster />
         <Providers>
           <main className="w-full h-screen lg:grid grid-cols-10 xl:grid-cols-9 gap-6 lg:p-6 xl:max-w-[1440px] mx-auto">
-            <section className="hidden shadow-custome lg:block w-full h-full col-span-3 xl:col-span-2">
+            <section className="hidden shadow-custome bg-white rounded-lg overflow-y-auto lg:block w-full h-full col-span-3 xl:col-span-2">
               <SidebarAdmin />
             </section>
 

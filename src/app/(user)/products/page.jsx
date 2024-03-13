@@ -2,7 +2,6 @@ import { getProducts } from "@/services/productService"
 import CategorySidebar from "./CategorySidebar";
 import queryString from "query-string";
 import ProductCard from "@/components/ProductCard";
-import ProductCardMobile from "@/components/ProductCardMobile";
 import { DownIcon } from "@/common/Icons";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { cookies } from "next/headers";
@@ -88,3 +87,9 @@ export default async function ProductsPage({searchParams}){
     )
 }
 
+export async function generateMetadata() {  
+    return {
+      title: "محصولات",
+      description: "صفحه تمامی محصولات"
+    }
+}

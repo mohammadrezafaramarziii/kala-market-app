@@ -89,7 +89,7 @@ export default function EditProduct() {
     useEffect(() => {
 
         if (!isPending && !productFake) {
-            const valueFieldObj = ["title", "slug", "brand", "countInStock", "price", "discount", "description"];
+            const valueFieldObj = ["title", "slug", "brand", "countInStock", "price", "discount", "description", "imageLink"];
 
             valueFieldObj.forEach((field) => {
                 formik.setFieldValue(field, product[field]);
@@ -118,12 +118,19 @@ export default function EditProduct() {
         <div>
             <TitlebarAdmin title={'ویرایش محصول'} />
 
+            <div className="my-6 flex justify-end">
+                <button onClick={() => history.back()} className="btn btn--light !w-[80px] !h-10 !text-xs">
+                    بازگشت
+                </button>
+            </div>
+
             <ProductFieldsForm
                 formik={formik}
                 categories={categories}
                 isLoading={isUpdating}
                 submitButtonText={"ویرایش"}
                 selectedCategory={product.category}
+                formType={'edit'}
             />
         </div>
     )

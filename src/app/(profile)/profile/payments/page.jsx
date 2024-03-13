@@ -153,8 +153,18 @@ export default function PaymentsPage() {
                                             {payment.cart.productDetail.map((product) => {
                                                 return (
                                                     <div key={product._id}>
-                                                        <div className="w-[60px] h-[60px] bg-slate-100 rounded-lg">
-
+                                                        <div className={`w-[60px] h-[60px] flex items-center justify-center ${product.imageLink ? "border" : "bg-slate-100"} rounded-lg`}>
+                                                            {
+                                                                product.imageLink &&
+                                                                <Image
+                                                                    src={`/images/${product.imageLink}`}
+                                                                    alt={product.title}
+                                                                    width={1000}
+                                                                    height={1000}
+                                                                    priority
+                                                                    className="w-[80%] mix-blend-multiply"
+                                                                />
+                                                            }
                                                         </div>
                                                     </div>
                                                 )

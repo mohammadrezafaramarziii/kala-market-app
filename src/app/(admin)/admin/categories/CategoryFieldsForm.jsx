@@ -6,7 +6,6 @@ export default function CategoryFieldForm({ formik, isLoading, submitButtonText 
         { label: "عنوان دسته بندی", title: "title" },
         { label: "نام انگلیسی دسته بندی", title: "englishTitle" },
         { label: "توضیحات", title: "description" },
-        { label: "نوع", title: "type" },
     ]
 
     return (

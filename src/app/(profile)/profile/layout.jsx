@@ -17,11 +17,11 @@ export default function RootLayout({ children }) {
         <Providers>
 
           <main className="w-full h-screen lg:grid grid-cols-10 xl:grid-cols-9 gap-6 lg:p-6 xl:max-w-[1440px] mx-auto">
-            <section className="hidden shadow-custome lg:block w-full h-full col-span-3 xl:col-span-2">
+            <section className="hidden shadow-custome bg-white overflow-y-auto rounded-lg lg:block w-full h-full col-span-3 xl:col-span-2">
               <Sidebar />
             </section>
 
-            <section className="w-full shadow-custome lg:h-full lg:relative lg:overflow-y-auto lg:overflow-x-hidden pb-6 bg-white rounded-lg lg:col-span-7 xl:col-span-7 px-6">
+            <section className="w-full shadow-custome  max-[1024px]:min-h-screen lg:h-full lg:relative lg:overflow-y-auto lg:overflow-x-hidden pb-6 bg-white rounded-lg lg:col-span-7 xl:col-span-7 px-6">
               {children}
             </section>
           </main>

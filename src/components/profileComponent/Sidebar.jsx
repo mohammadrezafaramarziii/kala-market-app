@@ -23,7 +23,7 @@ export default function Sidebar({ show, onClose }) {
             <LogoutModal show={logoutModal} onClose={()=>setLogoutModal(false)}/>
             <div onClick={onClose} className={`lg:!hidden ${show ? "block" : "hidden"} z-[60] w-full h-full fixed top-0 right-0 bg-secondary-800/30 backdrop-blur-sm`}></div>
 
-            <aside className={`w-full h-full max-[1024px]:max-w-[280px] z-[60] bg-white lg:rounded-lg lg:static fixed top-0 right-0 ${show ? "translate-x-0" : "translate-x-full"} lg:!translate-x-0 duration-200 ease-out`}>
+            <aside className={`w-full h-full max-[1024px]:max-w-[280px] z-[60] overflow-y-auto bg-white lg:rounded-lg lg:static fixed top-0 right-0 ${show ? "translate-x-0" : "translate-x-full"} lg:!translate-x-0 duration-200 ease-out`}>
 
                 <div className="lg:hidden absolute top-6 left-6">
                     <button onClick={onClose} className="btn">
@@ -68,7 +68,7 @@ export default function Sidebar({ show, onClose }) {
                                 :
                                 <>
                                     <h3 className="font-bold text-secondary-800">
-                                        {user?.name}
+                                        {user?.name || "کاربر"}
                                     </h3>
                                     <span className="text-xs text-secondary-400">
                                         {toPersianDigit(user.phoneNumber)}

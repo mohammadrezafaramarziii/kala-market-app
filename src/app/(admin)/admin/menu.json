@@ -3,5 +3,6 @@
     {"title": "کاربران", "link":"/admin/users", "label":"users"},
     {"title": "دسته بندی", "link":"/admin/categories", "label":"categories"},
     {"title": "محصولات", "link":"/admin/products", "label":"products"},
-    {"title": "سفارشات", "link":"/admin/payments", "label":"payments"}
+    {"title": "سفارشات", "link":"/admin/payments", "label":"payments"},
+    {"title": "تخفیفات", "link":"/admin/coupons", "label":"coupons"}
 ]

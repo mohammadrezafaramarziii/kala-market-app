@@ -85,11 +85,18 @@ export default function AddNewProduct() {
         <div>
             <TitlebarAdmin title={'افزودن محصول جدید'} />
 
+            <div className="my-6 flex justify-end">
+                <button onClick={() => history.back()} className="btn btn--light !w-[80px] !h-10 !text-xs">
+                    بازگشت
+                </button>
+            </div>
+
             <ProductFieldsForm 
                 formik={formik}
                 categories={categories}
                 isLoading={isPending}
                 submitButtonText={"ثبت"}
+                formType={'add'}
             />
         </div>
     )

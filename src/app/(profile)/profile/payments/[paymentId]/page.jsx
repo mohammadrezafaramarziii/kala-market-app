@@ -5,6 +5,7 @@ import { useGetAllUser, useGetUser } from "@/hooks/useAuth";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { toPersianDate } from "@/utils/toPersianDate";
 import { toPersianDigit } from "@/utils/toPersianDigit";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function PaymentDetail({ params }) {
@@ -86,8 +87,18 @@ export default function PaymentDetail({ params }) {
                                         {toPersianDigit(index + 1)}
                                     </div>
                                     <div>
-                                        <div className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg bg-slate-100">
-
+                                        <div className={`w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg ${!product.imageLink && "bg-slate-100"}`}>
+                                            {
+                                                product.imageLink &&
+                                                <Image
+                                                    src={`/images/${product.imageLink}`}
+                                                    alt={product.title}
+                                                    width={1000}
+                                                    height={1000}
+                                                    priority
+                                                    className="w-full h-full mix-blend-multiply"
+                                                />
+                                            }
                                         </div>
                                     </div>
                                     <div className="flex flex-col gap-1 md:gap-2">

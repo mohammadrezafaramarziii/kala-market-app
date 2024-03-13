@@ -8,23 +8,26 @@ import { AddToCart } from "./AddToCart";
 import { LikeProduct } from "./LikeProduct";
 import ShareLink from "./ShareLink";
 import BackLink from "./BackLink";
+import LoadingFix from "@/common/loading/LoadingFix";
 
-export const dynamic = "force-static";
-export const dynamicParams = false;
+// export const dynamic = "force-static";
+// export const dynamicParams = false;
 
-export default async function ProductDetailsPage({params}){
+export default async function ProductDetailsPage({ params }) {
     const { slug } = params;
     const { product } = await getProductBySlug(slug);
-   
-    return(
+
+    if (!product) return <LoadingFix />
+
+    return (
         <div className="w-full xl:max-w-6xl mx-auto">
-            
+
             {/* ***** top bar ***** */}
             <div className="w-full lg:hidden sticky flex items-center z-50 justify-between top-0 right-0 bg-white/70 backdrop-blur-md p-6 shadow-md">
                 <div className="flex items-center gap-3">
                     <BackLink />
                     <div>
-                        <Image 
+                        <Image
                             src={'/images/logo-lg.svg'}
                             alt=""
                             width={120}
@@ -36,7 +39,7 @@ export default async function ProductDetailsPage({params}){
                 <div className="flex items-center gap-2">
                     <ShareLink />
                     <CartLink />
-                    <LikeProduct product={product}/>
+                    <LikeProduct product={product} />
                 </div>
             </div>
 
@@ -48,26 +51,26 @@ export default async function ProductDetailsPage({params}){
                     <div className="flex items-center gap-10">
                         <ul className="flex items-center gap-1 text-xs text-secondary-400 flex-wrap">
                             <li className="whitespace-nowrap">صفحه اصلی</li>
-                            <DownIcon className={'w-3 h-3 rotate-90'}/>
+                            <DownIcon className={'w-3 h-3 rotate-90'} />
                             <li className="whitespace-nowrap">محصولات</li>
-                            <DownIcon className={'w-3 h-3 rotate-90'}/>
+                            <DownIcon className={'w-3 h-3 rotate-90'} />
                             <li className="whitespace-nowrap">{product.category.title}</li>
-                            <DownIcon className={'w-3 h-3 rotate-90'}/>
+                            <DownIcon className={'w-3 h-3 rotate-90'} />
                             <li className="!text-secondary-800 font-medium ">{product.title}</li>
                         </ul>
 
                         <div className="hidden lg:flex items-center gap-6">
                             <ShareLink />
-                            <LikeProduct product={product}/>
+                            <LikeProduct product={product} />
                         </div>
                     </div>
-                    <div className={`hidden lg:block text-xs ${Number(product.countInStock) <= 5  ? "text-error" : "text-secondary-400"}`}>
+                    <div className={`hidden lg:block text-xs ${Number(product.countInStock) <= 5 ? "text-error" : "text-secondary-400"}`}>
                         <span>
                             {
                                 Number(product.countInStock) !== 0 ?
-                                toPersianDigit(`تنها تعداد ${product.countInStock} عدد از این کالا در انبار باقی مانده`)
-                                :
-                                "ناموجود"
+                                    toPersianDigit(`تنها تعداد ${product.countInStock} عدد از این کالا در انبار باقی مانده`)
+                                    :
+                                    "ناموجود"
                             }
                         </span>
                     </div>
@@ -81,15 +84,27 @@ export default async function ProductDetailsPage({params}){
 
                 {/* image */}
                 <div className="w-full">
-                    <div className="aspect-w-10 aspect-h-10 bg-slate-200 rounded-lg">
-                        <Image
-                            src={'/images/logo-sm.svg'}
-                            alt=""
-                            width={1000}
-                            height={1000}
-                            className="opacity-20 !w-[50px] object-center objectcover mx-auto"
-                            priority
-                        />
+                    <div className="aspect-w-10 aspect-h-10 bg-slate-200 rounded-lg overflow-hidden">
+                        {
+                            product.imageLink ?
+                                <Image
+                                    src={`/images/${product.imageLink}`}
+                                    alt={product.title}
+                                    width={1000}
+                                    height={1000}
+                                    className="!w-[70%] !h-[70%] object-center mx-auto top-1/2 -translate-y-1/2 mix-blend-multiply"
+                                    priority
+                                />
+                                :
+                                <Image
+                                    src={'/images/logo-sm.svg'}
+                                    alt=""
+                                    width={1000}
+                                    height={1000}
+                                    className="opacity-20 !w-[50px] object-center objectcover mx-auto"
+                                    priority
+                                />
+                        }
                     </div>
                 </div>
 
@@ -113,17 +128,17 @@ export default async function ProductDetailsPage({params}){
 
                     <div className="w-full flex gap-2 mt-4 mb-6">
                         <ul className="text-xs text-secondary-500 flex items-center gap-3 flex-wrap">
-                            {product.tags.map((tag, index)=>{
-                                return(
+                            {product.tags.map((tag, index) => {
+                                return (
                                     <li key={index} className="flex items-center gap-1">
-                                        <HashtagIcon className={'w-3 h-3'}/>
+                                        <HashtagIcon className={'w-3 h-3'} />
                                         {tag}
                                     </li>
                                 )
                             })}
                         </ul>
                     </div>
-                    
+
                     <div className="flex-1 space-y-8 lg:space-y-6 lg:flex flex-col justify-between">
                         <div>
                             <h4 className="text-sm lg:text-base text-secondary-700 font-semibold mb-4">
@@ -131,19 +146,19 @@ export default async function ProductDetailsPage({params}){
                             </h4>
                             <div className="space-y-4">
                                 <div className="w-full flex items-center gap-2">
-                                    <LikeIcon className={'w-5 h-5 text-primary-900'}/>
+                                    <LikeIcon className={'w-5 h-5 text-primary-900'} />
                                     <div className="text-sm text-secondary-500">
                                         {toPersianDigit(`${product.likes.length} نفر این محصول رو لایک کردن`)}
                                     </div>
                                 </div>
                                 <div className="w-full flex items-center gap-2">
-                                    <StarIcon className={'w-5 h-5 text-yellow-500'}/>
+                                    <StarIcon className={'w-5 h-5 text-yellow-500'} />
                                     <div className="text-sm text-secondary-500">
                                         {toPersianDigit(`${product.rating} امتیاز این محصول`)}
                                     </div>
                                 </div>
                                 <div className="w-full flex items-center gap-2">
-                                    <CommentIcon className={'w-5 h-5 text-green-700'}/>
+                                    <CommentIcon className={'w-5 h-5 text-green-700'} />
                                     <div className="text-sm text-secondary-500">
                                         {toPersianDigit(`${product.numReviews} نظر درباره این محصول`)}
                                     </div>
@@ -172,7 +187,7 @@ export default async function ProductDetailsPage({params}){
                                     <div className="text-secondary-900 text-2xl flex items-center gap-1 !font-bold">
                                         {toPersianDigit(numberWithCommas(product.offPrice))}
                                         <span className="inline-block text-xs text-secondary-400 !font-normal">
-                                            تومــــان   
+                                            تومــــان
                                         </span>
                                     </div>
                                 </div>
@@ -181,12 +196,12 @@ export default async function ProductDetailsPage({params}){
                                 {
                                     !!product.discount &&
                                     <span className="-rotate-90 inline-block text-sm font-medium px-3 py-[2px] text-white bg-red-600 rounded-full !rounded-bl-xl">
-                                        {toPersianDigit(`٪${product.discount}`)}   
+                                        {toPersianDigit(`٪${product.discount}`)}
                                     </span>
                                 }
                             </div>
                             <div className="w-full">
-                                <AddToCart product={product}/>
+                                <AddToCart product={product} />
                             </div>
                         </div>
 
@@ -194,7 +209,7 @@ export default async function ProductDetailsPage({params}){
                             <p className="flex-1 leading-[18px]">
                                 این محصول به دلیل کیفیت بالا دارای گارانتی یک ساله کالا مارکت می باشد
                             </p>
-                            <SecureIcon className="w-6 h-6"/>
+                            <SecureIcon className="w-6 h-6" />
                         </div>
 
                     </div>
@@ -203,13 +218,13 @@ export default async function ProductDetailsPage({params}){
                 {/* add to cart in mobile */}
                 <div className="w-full lg:hidden p-4 fixed bottom-0 right-0 z-50">
                     <div className="w-full py-4 pr-4 pl-2 rounded-xl bg-white/70 backdrop-blur-md shadow-[0_0px_15px_-3px_rgba(0,0,0,0.3)]">
-                        <div className={` text-xs ${Number(product.countInStock) <= 5  ? "text-error" : "text-secondary-400"}`}>
+                        <div className={` text-xs ${Number(product.countInStock) <= 5 ? "text-error" : "text-secondary-400"}`}>
                             <span>
                                 {
                                     Number(product.countInStock) !== 0 ?
-                                    toPersianDigit(`تنها تعداد ${product.countInStock} عدد از این کالا در انبار باقی مانده`)
-                                    :
-                                    "ناموجود"
+                                        toPersianDigit(`تنها تعداد ${product.countInStock} عدد از این کالا در انبار باقی مانده`)
+                                        :
+                                        "ناموجود"
                                 }
                             </span>
                         </div>
@@ -229,21 +244,21 @@ export default async function ProductDetailsPage({params}){
                                 </div>
 
                                 <span className="max-w-[22px] mb-4 -rotate-90 inline-block text-xs text-secondary-400">
-                                    تومــــان   
+                                    تومــــان
                                 </span>
 
                                 {
                                     !!product.discount &&
                                     <span className="-rotate-90 inline-block text-sm font-medium px-3 py-[2px] text-white bg-red-600 rounded-full !rounded-bl-xl">
-                                        {toPersianDigit(`٪${product.discount}`)}   
+                                        {toPersianDigit(`٪${product.discount}`)}
                                     </span>
                                 }
                             </div>
                             <div className="w-full">
-                                <AddToCart product={product}/>
+                                <AddToCart product={product} />
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -254,27 +269,27 @@ export default async function ProductDetailsPage({params}){
             {/* ***** kala market features ***** */}
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 my-20 px-6">
                 <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
-                    <SupportIcon className="w-6 h-6 text-secondary-400"/>
+                    <SupportIcon className="w-6 h-6 text-secondary-400" />
                     <span className="text-xs text-secondary-700 font-semibold">
-                        {toPersianDigit("پشتیبانی 24 ساعت، 7 روز هفته")} 
+                        {toPersianDigit("پشتیبانی 24 ساعت، 7 روز هفته")}
                     </span>
                 </div>
                 <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
-                    <PayInHomeIcon className="w-6 h-6 text-secondary-400"/>
+                    <PayInHomeIcon className="w-6 h-6 text-secondary-400" />
                     <span className="text-xs text-secondary-700 font-semibold">
-                        {toPersianDigit("امکان پرداخت در محل")} 
+                        {toPersianDigit("امکان پرداخت در محل")}
                     </span>
                 </div>
                 <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
-                    <ReturnTen className="w-6 h-6 text-secondary-400"/>
+                    <ReturnTen className="w-6 h-6 text-secondary-400" />
                     <span className="text-xs text-secondary-700 font-semibold">
-                        {toPersianDigit("10 روز ضمانت بازگشت کالا")} 
+                        {toPersianDigit("10 روز ضمانت بازگشت کالا")}
                     </span>
                 </div>
                 <div className="w-full flex flex-row-reverse items-center justify-between gap-4 bg-slate-100 px-5 py-6 rounded-xl">
-                    <MedalIcon className="w-6 h-6 text-secondary-400"/>
+                    <MedalIcon className="w-6 h-6 text-secondary-400" />
                     <span className="text-xs text-secondary-700 font-semibold">
-                        {toPersianDigit("ضمانت اصل بودن کالا")} 
+                        {toPersianDigit("ضمانت اصل بودن کالا")}
                     </span>
                 </div>
             </div>
@@ -348,7 +363,7 @@ export default async function ProductDetailsPage({params}){
                             />
                             <div className="w-full h-full flex items-center justify-center absolute top-0 right-0 bg-secondary-900/60">
                                 <button className="btn text-white">
-                                    <PlayIcon className="w-8 h-8 sm:w-14 sm:h-14"/>
+                                    <PlayIcon className="w-8 h-8 sm:w-14 sm:h-14" />
                                 </button>
                             </div>
                         </div>
@@ -369,7 +384,7 @@ export default async function ProductDetailsPage({params}){
                             </li>
                         </ul>
                     </div>
-                    
+
                     <div>
                         <div className="flex items-center gap-2 mb-4">
                             <div className="w-3 h-3 bg-primary-900 rounded-full"></div>
@@ -384,11 +399,11 @@ export default async function ProductDetailsPage({params}){
                                 </button>
                             </div>
                             <div className="space-y-4 lg:col-span-6">
-                                {Array(product.numReviews).fill({}).map((item,index)=>{
-                                    return(
+                                {Array(product.numReviews).fill({}).map((item, index) => {
+                                    return (
                                         <div key={index} className="w-full space-y-2 bg-white border border-slate-200 rounded-xl p-4">
                                             <div className="w-full flex flex-col min-[430px]:flex-row items-start gap-3 min-[430px]:items-center min-[430px]:justify-between">
-                                            <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-2">
                                                     <h6 className="text-sm text-secondary-800 font-semibold">
                                                         نام کاربر
                                                     </h6>
@@ -396,20 +411,20 @@ export default async function ProductDetailsPage({params}){
                                                     <div className="text-xs text-secondary-600 font-semibold truncate">
                                                         {product.title}
                                                     </div>
-                                            </div>
+                                                </div>
                                                 <div className="text-xs text-error bg-slate-100 px-2 py-1 rounded-full">
                                                     خریدار
                                                 </div>
                                             </div>
                                             <p className="text-xs text-secondary-500 leading-[26px]">
-                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
                                             </p>
                                             <div className="w-full flex items-center gap-4 justify-end">
                                                 <button className="btn text-secondary-500">
-                                                    <LikeIcon className={'w-4 h-4'}/>
+                                                    <LikeIcon className={'w-4 h-4'} />
                                                 </button>
                                                 <button className="btn text-secondary-500">
-                                                    <DislikeIcon className={'w-4 h-4'}/>
+                                                    <DislikeIcon className={'w-4 h-4'} />
                                                 </button>
                                             </div>
                                         </div>
@@ -426,11 +441,19 @@ export default async function ProductDetailsPage({params}){
     )
 }
 
+export async function generateMetadata({ params }) {
+    const { product } = await getProductBySlug(params.slug);
 
-export async function generateStaticParams(){
-    const { products } = await getProducts();
-
-    return products.map((product)=>{
-        slug: product.slug
-    })
+    return {
+        title: product.title,
+        description: product.description
+    }
 }
+
+// export async function generateStaticParams() {
+//     const { products } = await getProducts();
+
+//     return products.map((product) => {
+//         slug: product.slug
+//     })
+// }

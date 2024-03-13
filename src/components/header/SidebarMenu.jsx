@@ -1,16 +1,13 @@
+"use client"
 import { CloseIcon, SearchIcon } from "@/common/Icons";
+import { useGetCategories } from "@/hooks/useCategories";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function SidebarMenu({ show, onClose }){
-    const menuItems = [
-        "محصولات تخفیف دار",
-        "محصولات",
-        "گوشی موبایل",
-        "لپ تاپ و کیس",
-        "تجهیزات جانبی",
-        "قطعات سخت افزاری",
-        "محصولات نرم افزاری",
-    ];
+    const { data:categoriesData, isPending:isGetCategories } = useGetCategories();
+    const { categories } = categoriesData || [];
+
     const menuItemsQuick = ["قوانین","حریم خصوصی","عودت کالا","شیوه پرداخت","سوالات متداول"];
 
     return(
@@ -47,10 +44,17 @@ export default function SidebarMenu({ show, onClose }){
                 </h4>
 
                 <ul className="w-full flex flex-col gap-4 text-sm text-secondary-800 font-medium">
-                    {menuItems.map((menu, index)=>{
+                    <li>
+                        <Link href={`/products`}>
+                            همه محصولات
+                        </Link>
+                    </li>
+                    {!isGetCategories && categories.map((item, index)=>{
                         return(
                             <li key={index}>
-                                {menu}
+                                <Link href={`/products?category=${item.englishTitle}`}>
+                                    {item.title}
+                                </Link>
                             </li>
                         )
                     })}

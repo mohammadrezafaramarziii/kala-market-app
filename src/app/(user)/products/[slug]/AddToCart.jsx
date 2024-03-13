@@ -20,7 +20,7 @@ export function AddToCart({ product }){
     const queryClient = useQueryClient();
 
     const isInCart = () => {
-       const isProduct = user?.cart.products.some((p) => p.productId === product._id);
+       const isProduct = user?.cart?.products.some((p) => p.productId === product._id);
        return isProduct;
     }
 

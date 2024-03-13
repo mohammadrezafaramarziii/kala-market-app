@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import SendOTPForm from "./SendOTPForm";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {checkOtp, getOtp} from "@/services/authService";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -20,7 +20,8 @@ export default function AuthPage(){
     const [otpError, setOtpError] = useState();
     const [time, setTime] = useState();
     const router = useRouter();
-
+    const queryClient = useQueryClient();
+  
     const { isPending : sendOtpLoading, mutateAsync : mutateSendOtp} = useMutation({
         mutationFn: getOtp
     })
@@ -58,7 +59,7 @@ export default function AuthPage(){
                 if(user.isActive) {
                     ToastSuccess("به کالا مارکت خوش آمدید");
                     router.replace("/");
-
+                    queryClient.invalidateQueries({queryKey:["get-user"]});
                 } else {
                     setStep(3);
                 }
@@ -85,6 +86,7 @@ export default function AuthPage(){
                 if(user.isActive) {
                     ToastSuccess("به کالا مارکت خوش آمدید");
                     router.replace("/");
+                    queryClient.invalidateQueries({queryKey:["get-user"]});
                 } else {
                     setStep(3);
                 }

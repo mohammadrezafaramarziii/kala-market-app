@@ -28,7 +28,7 @@ export default function PaidProductsPage() {
             setPaidProducts(paids);
         }
     }, [payments, isPending])
-    
+
     if (isPending) {
         return (
             <div className="w-full h-full max-[1024px]:min-h-[calc(100vh-3rem)] flex items-center justify-center">
@@ -54,8 +54,18 @@ export default function PaidProductsPage() {
                                                 {toPersianDigit(index + 1)}
                                             </div>
                                             <div>
-                                                <div className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg bg-slate-100">
-
+                                                <div className={`w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg ${!product.imageLink && "bg-slate-100"}`}>
+                                                    {
+                                                        product.imageLink &&
+                                                        <Image
+                                                            src={`/images/${product.imageLink}`}
+                                                            alt={product.title}
+                                                            width={1000}
+                                                            height={1000}
+                                                            priority
+                                                            className="w-full h-full mix-blend-multiply"
+                                                        />
+                                                    }
                                                 </div>
                                             </div>
                                             <div className="flex flex-col gap-1 md:gap-2">

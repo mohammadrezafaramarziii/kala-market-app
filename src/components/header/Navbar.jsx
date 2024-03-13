@@ -31,13 +31,13 @@ export default function Navbar() {
     })
 
     if (pathName === "/auth" || pathName === "/complete-profile") return null
-    if (pathName.startsWith("/products") && pathName !== "/products" && window.innerWidth <= 1024) return null
+    if (pathName.startsWith("/products") && pathName !== "/products" &&  screenSize <= 1024) return null
 
     return (
         <>
 
             {
-                window.innerWidth <= 1024 &&
+                screenSize <= 1024 &&
                 <SidebarMenu onClose={() => setShowSidebarMenu(false)} show={showSidebarMenu} />
             }
 
@@ -54,7 +54,7 @@ export default function Navbar() {
                             </div>
 
                             <div className="flex w-10 md:w-[160px]">
-                                <Link href={'/'}>
+                                <Link href={'/'} className="w-full h-full inline-block">
                                     <Image
                                         src={'/images/logo-sm.svg'}
                                         alt=""
@@ -117,7 +117,7 @@ export default function Navbar() {
                                             </div>
                                             <div className="flex flex-col items-start gap-1">
                                                 <div className="text-secondary-800 font-medium">حساب کاربری</div>
-                                                <div className="text-xs text-secondary-600">{user.name}</div>
+                                                <div className="text-xs text-secondary-600">{user.name || "کاربر"}</div>
                                             </div>
                                         </Link>
                                         :

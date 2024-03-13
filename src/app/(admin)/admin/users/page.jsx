@@ -43,10 +43,10 @@ export default function UsersPage() {
                                         {toPersianDigit(index + 1)}
                                     </th>
                                     <th className="table__td  pl-8">
-                                        {toPersianDigit(user.name)}
+                                        {toPersianDigit(user.name || "---")}
                                     </th>
                                     <th className="table__td  pl-8">
-                                        {toPersianDigit(user.email)}
+                                        {toPersianDigit(user.email || "---")}
                                     </th>
                                     <th className="table__td  pl-8">
                                         {toPersianDigit(user.phoneNumber)}
@@ -54,6 +54,11 @@ export default function UsersPage() {
                                     <th className="table__td  pl-8">
                                         <div className={user.role === "ADMIN" && "!text-primary-900"}>
                                             {user.role === "USER" ? "کاربر عادی" : "کاربر ادمین"}
+                                        </div>
+                                    </th>
+                                    <th className="table__td  pl-8">
+                                        <div className={user.isVerifiedPhoneNumber ? "badge__success" : "badge__error"}>
+                                            {user.isVerifiedPhoneNumber ? "فعال" : "تایید نشده"}
                                         </div>
                                     </th>
                                 </tr>

@@ -18,14 +18,13 @@ import ToastError from "@/common/toasts/ToastError";
 const initialValues = {
     title: "",
     englishTitle: "",
-    type: "",
+    type: "product",
     description: ""
 }
 
 const validationSchema = Yup.object({
     title: Yup.string().required("عنوان دسته بندی را وارد کنید").min(3, "عنوان باید حداقل 3 حرف باشد"),
     englishTitle: Yup.string().required("نام انگلیسی را وارد کنید").min(3, "نام انگلیسی باید حداقل 3 حرف باشد"),
-    type: Yup.string().required("نوع دسته بندی را وارد کنید"),
     description: Yup.string().required("توضیحات دسته بندی را وارد کنید")
 })
 
@@ -59,7 +58,7 @@ export default function EditCategory() {
 
     useEffect(() => {
         if (!isPending) {
-            const fieldsObj = ["title", "description", "type", "englishTitle"];
+            const fieldsObj = ["title", "description", "englishTitle"];
 
             fieldsObj.forEach((field)=>{
                 formik.setFieldValue(field, category[field]);

@@ -6,8 +6,9 @@ import { toPersianDigit } from "@/utils/toPersianDigit";
 import Image from "next/image";
 import Select from 'react-select';
 import { TagsInput } from "react-tag-input-component";
+import "@/styles/react-select.css";
 
-export default function ProductFieldsForm({ formik, isLoading, submitButtonText, categories, selectedCategory = "" }) {
+export default function ProductFieldsForm({ formType, formik, isLoading, submitButtonText, categories, selectedCategory = "" }) {
     const textFieldObj = [
         { label: "عنوان محصول", title: "title" },
         { label: "اسلاگ", title: "slug" },
@@ -16,22 +17,22 @@ export default function ProductFieldsForm({ formik, isLoading, submitButtonText,
         { label: "قیمت پایه", title: "price" },
         { label: "میزان تخفیف", title: "discount" },
     ]
-    
+
     return (
         <div className="mt-8 space-y-6">
 
             {/* select image product */}
             <div className="inline-flex flex-col gap-3">
                 <div className={`w-[180px] h-[180px] flex items-center justify-center rounded-xl border border-slate-100 bg-slate-100 overflow-hidden ${formik.touched.imageLink && formik.errors.imageLink && "!border-error"}`}>
-
                     {
                         formik.values.imageLink ?
                             <Image
-                                src={URL.createObjectURL(formik.values.imageLink)}
+                                src={formType === "edit" && typeof formik.values.imageLink === "string" ? `/images/${formik.values.imageLink}` : URL.createObjectURL(formik.values.imageLink)}
                                 alt=""
                                 width={1000}
                                 height={1000}
-                                className="w-[80%] h-[80%]"
+                                className="w-[80%] h-[80%] mix-blend-multiply"
+                                priority
                             />
                             :
                             <ImageIcon className="w-8 h-8 text-secondary-100" />
@@ -73,14 +74,17 @@ export default function ProductFieldsForm({ formik, isLoading, submitButtonText,
                     <label className={`text-xs text-secondary-500 mb-2 mr-1 inline-block`}>
                         دسته بندی
                     </label>
-                    <Select
-                        instanceId={'category'}
-                        onChange={(e) => formik.setFieldValue("category", e._id)}
-                        options={categories}
-                        getOptionLabel={(options) => options.title}
-                        getOptionValue={(options) => options._id}
-                        defaultValue={selectedCategory}
-                    />
+                    <div className={`textField__input !px-0 ${formik.errors.category && formik.touched.category ? "border-error" : "border-slate-200"}`}>
+                        <Select
+                            instanceId={'category'}
+                            onChange={(e) => formik.setFieldValue("category", e._id)}
+                            options={categories}
+                            getOptionLabel={(options) => options.title}
+                            getOptionValue={(options) => options._id}
+                            defaultValue={selectedCategory}
+                            placeholder="دسته بندی"
+                        />
+                    </div>
                     {
                         formik.errors.category && formik.touched.category &&
                         <span className="text-xs text-error mr-1 font-medium">

@@ -19,7 +19,7 @@ export default function SidebarAdmin({ show, onClose }) {
     return (
         <>
             <LogoutModal show={logoutModal} onClose={() => setLogoutModal(false)} />
-            <div onClick={onClose} className={`lg:!hidden ${show ? "block" : "hidden"} z-[60] w-full h-full fixed top-0 right-0 bg-secondary-800/30 backdrop-blur-sm`}></div>
+            <div onClick={onClose} className={`lg:!hidden ${show ? "block" : "hidden"} overflow-y-auto z-[60] w-full h-full fixed top-0 right-0 bg-secondary-800/30 backdrop-blur-sm`}></div>
 
             <aside className={`w-full h-full max-[1024px]:max-w-[280px] z-[60] bg-white lg:rounded-lg lg:static fixed top-0 right-0 ${show ? "translate-x-0" : "translate-x-full"} lg:!translate-x-0 duration-200 ease-out`}>
 
@@ -32,21 +32,11 @@ export default function SidebarAdmin({ show, onClose }) {
                 {/* profile data */}
                 <div className="px-8 pt-14 lg:pt-8">
                     <div className="space-y-3 border-b border-slate-100 pb-6">
-                        <div className="w-full flex items-center justify-between">
-                            <div>
-                                <Link href={'/profile/personal-info'} className="btn btn--icon">
-                                    <EditIcon className={'w-4 h-4'} />
-                                </Link>
-                            </div>
+                        <div className="w-full flex items-center justify-center">
                             <div>
                                 <div className="w-[55px] btn h-[55px] shadow-xl text-white overflow-hidden rounded-full bg-green-600">
                                     <UserSolidIcon className="w-8 h-8" />
                                 </div>
-                            </div>
-                            <div>
-                                <button onClick={() => setLogoutModal(true)} className="btn btn--icon">
-                                    <LogoutIcon className={'w-4 h-4'} />
-                                </button>
                             </div>
                         </div>
 
@@ -97,6 +87,20 @@ export default function SidebarAdmin({ show, onClose }) {
                                 </li>
                             )
                         })}
+
+                        <li>
+                            <button onClick={() => setLogoutModal(true)} className={`!text-error text-xs  px-8 w-full flex`}>
+                                <div className="w-full py-4 flex items-center justify-between border-b border-slate-100">
+                                    <div className="flex items-center gap-2">
+                                        <LogoutIcon className={'w-5 h-5'}/>
+                                        <span>
+                                            خروج از حساب کاربری
+                                        </span>
+                                    </div>
+                                    <ArrowRightIcon className={'w-4 h-4 rotate-180'} />
+                                </div>
+                            </button>
+                        </li>
                     </ul>
                 </div>
 

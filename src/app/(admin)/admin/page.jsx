@@ -8,6 +8,7 @@ import { useGetProducts } from '@/hooks/useProducts'
 import { numberWithCommas } from '@/utils/numberWithCommas'
 import { toPersianDate } from '@/utils/toPersianDate'
 import { toPersianDigit } from '@/utils/toPersianDigit'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -114,8 +115,18 @@ export default function AdminPage() {
                 <div key={product._id} className="w-full flex flex-col gap-3 md:flex-row lg:justify-between lg:items-center p-4 border border-slate-100 rounded-lg">
                   <div className="flex-1 flex items-center gap-3">
                     <div>
-                      <div className="w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg bg-slate-100">
-
+                      <div className={`w-[50px] h-[50px] md:w-[80px] md:h-[80px] rounded-lg ${!product.imageLink && "bg-slate-100"}`}>
+                          {
+                              product.imageLink &&
+                              <Image
+                                  src={`/images/${product.imageLink}`}
+                                  alt={product.title}
+                                  width={1000}
+                                  height={1000}
+                                  priority
+                                  className="w-full h-full mix-blend-multiply"
+                              />
+                          }
                       </div>
                     </div>
                     <div className="flex flex-col gap-1 md:gap-2">
