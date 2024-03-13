@@ -48,7 +48,7 @@ export default function ProductCard({ product, className, classNamePriceBox, isL
 
                 {
                     !!product.discount &&
-                    <div className="absolute top-5 left-5 py-[2px] px-2 bg-error text-white text-xs font-medium flex items-center justify-center rounded-xl rounded-bl">
+                    <div className="absolute top-5 left-5 py-[2px] z-20 px-2 bg-error text-white text-xs font-medium flex items-center justify-center rounded-xl rounded-bl">
                         {toPersianDigit(`${product.discount} %`)}
                     </div>
                 }

@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { updateProduct } from "@/services/productService";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
 import ToastError from "@/common/toasts/ToastError";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 
 const initialValues = {
@@ -51,6 +51,7 @@ export default function EditProduct() {
     const { categories } = categoriesData || {};
     const [productFake, setProductFake] = useState();
     const { mutateAsync, isPending: isUpdating } = useMutation({ mutationFn: updateProduct });
+    const queryClient = useQueryClient();
 
     const updateProductHandler = async () => {
         const { title, description, slug, tags, imageLink, brand, price, discount, offPrice, countInStock, category, numReviews } = formik.values;
@@ -68,11 +69,12 @@ export default function EditProduct() {
                     discount: Number(discount) || 0,
                     offPrice: Number(offPrice),
                     countInStock,
-                    category: category._id,
+                    category,
                 }
             })
             ToastSuccess(message);
-            router.push('/admin/products')
+            router.push('/admin/products');
+            queryClient.invalidateQueries({queryKey:["get-products"]})
         } catch (error) {
             ToastError(error?.response?.data?.message);
         }
@@ -103,7 +105,7 @@ export default function EditProduct() {
 
         let offPrice = formik.values.discount > 0 && (formik.values.price * formik.values.discount) / 100;
         formik.setFieldValue("offPrice", offPrice ? formik.values.price - offPrice : formik.values.price);
-    }, [formik.values.price, formik.values.discount, product, isPending])
+    }, [formik.values.price, formik.values.discount, data, isPending])
 
 
     if (isPending) {
