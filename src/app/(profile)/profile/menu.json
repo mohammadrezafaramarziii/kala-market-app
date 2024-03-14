@@ -1,6 +1,14 @@
 [
-    {"title": "داشبورد", "link":"/profile", "label":"home"},
-    {"title": "اطلاعات کاربری", "link":"/profile/personal-info", "label":"profile"},
-    {"title": "سفارشات", "link":"/profile/payments", "label":"orders"},
-    {"title": "خرید های پرتکرار", "link":"/profile/paid-products", "label":"paidProducts"}
+  { "title": "داشبورد", "link": "/profile", "label": "home" },
+  {
+    "title": "اطلاعات کاربری",
+    "link": "/profile/personal-info",
+    "label": "profile"
+  },
+  { "title": "سفارشات", "link": "/profile/payments", "label": "orders" },
+  {
+    "title": "خرید های پرتکرار",
+    "link": "/profile/paid-products",
+    "label": "paidProducts"
+  }
 ]

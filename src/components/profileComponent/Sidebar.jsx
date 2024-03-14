@@ -109,7 +109,7 @@ export default function Sidebar({ show, onClose }) {
                         {menuJson.map((menu, index) => {
                             return (
                                 <li key={index} className="">
-                                    <Link onClick={onClose} href={menu.link} className={`${pathname === menu.link? "font-semibold text-primary-900 bg-gradient-to-r from-primary-100/20" : "text-secondary-400"} text-xs  px-8 w-full flex`}>
+                                    <Link onClick={onClose} href={menu.link} className={`${pathname === menu.link ? "font-semibold text-primary-900 bg-gradient-to-r from-primary-100/20" : "text-secondary-400"} text-xs  px-8 w-full flex`}>
                                         <div className="w-full py-4 flex items-center justify-between border-b border-slate-100">
                                             <div className="flex items-center gap-2">
                                                 {renderIconMenu(menu.label)}

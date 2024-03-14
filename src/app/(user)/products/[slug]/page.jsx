@@ -16,7 +16,7 @@ import LoadingFix from "@/common/loading/LoadingFix";
 export default async function ProductDetailsPage({ params }) {
     const { slug } = params;
     const { product } = await getProductBySlug(slug);
-
+    
     if (!product) return <LoadingFix />
 
     return (

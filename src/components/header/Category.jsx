@@ -46,7 +46,7 @@ export default function Category() {
         }
     })
 
-    if (pathName === "/auth" || pathName === "/complete-profile") return null
+    if (pathName === "/auth") return null
     if (pathName.startsWith("/products") && pathName !== "/products" && screenSize <= 1024) return null
 
 

@@ -8,6 +8,7 @@ import Link from "next/link";
 import { DownIcon, MoreIcon } from "@/common/Icons";
 import ProductCard from "../ProductCard";
 import Skeleton from "react-loading-skeleton";
+import Image from "next/image";
 
 export default function ProductsSlider({ title, etitle, href, products, isLoading, name }) {
   return (

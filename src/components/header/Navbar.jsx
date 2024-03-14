@@ -6,7 +6,7 @@ import { toPersianDigit } from "@/utils/toPersianDigit";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useGetUser } from "@/hooks/useAuth";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SidebarMenu from "./SidebarMenu";
 
@@ -16,6 +16,7 @@ export default function Navbar() {
     const [screenSize, setScreenSize] = useState();
     const [showSidebarMenu, setShowSidebarMenu] = useState(false);
     const pathName = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         const resizeHandler = () => {
@@ -29,9 +30,8 @@ export default function Navbar() {
             window.removeEventListener("resize", resizeHandler);
         }
     })
-
-    if (pathName === "/auth" || pathName === "/complete-profile") return null
-    if (pathName.startsWith("/products") && pathName !== "/products" &&  screenSize <= 1024) return null
+    if (pathName === "/auth") return null
+    if (pathName.startsWith("/products") && pathName !== "/products" && screenSize <= 1024) return null
 
     return (
         <>
@@ -41,7 +41,7 @@ export default function Navbar() {
                 <SidebarMenu onClose={() => setShowSidebarMenu(false)} show={showSidebarMenu} />
             }
 
-            <header className={`w-full sticky z-[60] bg-white  shadow-[0px_30px_16px_-30px_rgba(0,0,0,0.1)] top-0 right-0`}>
+            <header className={`w-full navbar sticky z-[60] bg-white  shadow-[0px_30px_16px_-30px_rgba(0,0,0,0.1)] top-0 right-0`}>
 
                 <nav className="py-5 lg:py-6 px-6 xl:max-w-6xl mx-auto">
 

@@ -11,15 +11,15 @@ export default function Home() {
   const { data: latestMobileProductsData, isPending: isGettingLatestMobile } = useGetLatestMobiles();
   const { products: latestMobileProducts } = latestMobileProductsData || {};
 
-  const { data:latestLaptopProductsData, isPending:isGettingLatestLaptop } = useGetLatestLaptop();
-  const { products:latestLaptopProducts } = latestLaptopProductsData || {};
+  const { data: latestLaptopProductsData, isPending: isGettingLatestLaptop } = useGetLatestLaptop();
+  const { products: latestLaptopProducts } = latestLaptopProductsData || {};
 
-  const { data:latestProductsData, isPending:isGettingLatest } = useGetLatestProducts();
-  const { products:latestProducts } = latestProductsData || {};
+  const { data: latestProductsData, isPending: isGettingLatest } = useGetLatestProducts();
+  const { products: latestProducts } = latestProductsData || {};
 
-  const { data:discountersProductsData, isPending:isGettingDiscounters } = useGetProducts();
-  const { products:discountersProducts } = discountersProductsData || {};
-  const filteredDiscountersProducts = discountersProducts?.filter((p)=>p.discount !== 0) || {};
+  const { data: discountersProductsData, isPending: isGettingDiscounters } = useGetProducts();
+  const { products: discountersProducts } = discountersProductsData || {};
+  const filteredDiscountersProducts = discountersProducts?.filter((p) => p.discount !== 0) || {};
 
   return (
     <main className="py-6 lg:py-8">
@@ -29,11 +29,11 @@ export default function Home() {
         <BanerSlider />
 
 
-        <ProductsSlider 
-          title={'تخفیف دار ها'} 
+        <ProductsSlider
+          title={'تخفیف دار ها'}
           etitle={'discounters'}
-          href={'/products'} 
-          products={filteredDiscountersProducts} 
+          href={'/products'}
+          products={filteredDiscountersProducts}
           isLoading={isGettingDiscounters}
           name="discounters-products-slider"
         />
@@ -63,11 +63,11 @@ export default function Home() {
         </div>
 
 
-        <ProductsSlider 
-          title={'جدیدترین محصولات'} 
+        <ProductsSlider
+          title={'جدیدترین محصولات'}
           etitle={'discounters'}
-          href={'/products?sort=latest'} 
-          products={latestProducts} 
+          href={'/products?sort=latest'}
+          products={latestProducts}
           isLoading={isGettingLatest}
           name="latest-products-slider"
         />
@@ -120,11 +120,11 @@ export default function Home() {
         <BrandSlider />
 
 
-        <ProductsSlider 
-          title={'جدیدترین لپ تاپ ها'} 
+        <ProductsSlider
+          title={'جدیدترین لپ تاپ ها'}
           etitle={'latest laptop'}
-          href={'/products?sort=latest&category=laptop'} 
-          products={latestLaptopProducts} 
+          href={'/products?sort=latest&category=laptop'}
+          products={latestLaptopProducts}
           isLoading={isGettingLatestLaptop}
           name="latest-laptop-products-slider"
         />

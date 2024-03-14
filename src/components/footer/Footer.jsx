@@ -12,7 +12,7 @@ export default function Footer(){
     if(pathname === "/auth") return null
 
     return(
-        <footer className="w-full mt-20">
+        <footer className="footer w-full mt-20">
 
             <div className="w-full px-6 flex flex-col lg:flex-row justify-center items-center gap-4 mb-8 lg:mb-12">
                 <div className="w-full lg:w-[200px] flex items-center gap-4">
