@@ -23,11 +23,11 @@ export default function Category() {
             var { scrollY } = window;
 
             if (scrollY > lastScrollTop) {
-                category.classList.remove("top-[104px]");
-                category.classList.add("top-0");
+                category?.classList.remove("top-[104px]");
+                category?.classList.add("top-0");
             } else if (scrollY < lastScrollTop) {
-                category.classList.remove("top-0");
-                category.classList.add("top-[104px]");
+                category?.classList.remove("top-0");
+                category?.classList.add("top-[104px]");
             }
 
             lastScrollTop = scrollY <= 0 ? 0 : scrollY;
