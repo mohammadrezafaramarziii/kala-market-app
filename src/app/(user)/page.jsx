@@ -1,11 +1,8 @@
 "use client"
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import BanerSlider from "@/components/homePage/BanerSlider";
 import ProductsSlider from "@/components/homePage/ProductsSlider";
-import { getProducts } from "@/services/productService";
-import { useGetLatestLaptop, useGetLatestMobiles, useGetProducts } from "@/hooks/useProducts";
+import { useGetLatestLaptop, useGetLatestMobiles, useGetLatestProducts, useGetProducts } from "@/hooks/useProducts";
 import Image from "next/image";
-import { useGetCategories } from "@/hooks/useCategories";
 import BrandSlider from "@/components/homePage/BrandSlider";
 import WeblogsBox from "@/components/homePage/WeblogsBox";
 
@@ -14,12 +11,15 @@ export default function Home() {
   const { data: latestMobileProductsData, isPending: isGettingLatestMobile } = useGetLatestMobiles();
   const { products: latestMobileProducts } = latestMobileProductsData || {};
 
-  // const { data:latestLaptopProductsData, isPending:isGettingLatestLaptop } = useGetLatestLaptop();
-  // const { products:latestLaptopProducts } = latestLaptopProductsData || {};
+  const { data:latestLaptopProductsData, isPending:isGettingLatestLaptop } = useGetLatestLaptop();
+  const { products:latestLaptopProducts } = latestLaptopProductsData || {};
 
-  // const { data:discountersProductsData, isPending:isGettingDiscounters } = useGetProducts();
-  // const { products:discountersProducts } = discountersProductsData || {};
-  // const filteredDiscountersProducts = discountersProducts?.filter((p)=>p.discount !== 0) || {};
+  const { data:latestProductsData, isPending:isGettingLatest } = useGetLatestProducts();
+  const { products:latestProducts } = latestProductsData || {};
+
+  const { data:discountersProductsData, isPending:isGettingDiscounters } = useGetProducts();
+  const { products:discountersProducts } = discountersProductsData || {};
+  const filteredDiscountersProducts = discountersProducts?.filter((p)=>p.discount !== 0) || {};
 
   return (
     <main className="py-6 lg:py-8">
@@ -28,14 +28,16 @@ export default function Home() {
 
         <BanerSlider />
 
-        <ProductsSlider
-          title={'جدیدترین موبایل ها'}
-          etitle={'latest mobiles'}
-          href={'/products?sort=latest&category=mobile'}
-          products={latestMobileProducts}
-          isLoading={isGettingLatestMobile}
-          name="cate-mobile-slider"
+
+        <ProductsSlider 
+          title={'تخفیف دار ها'} 
+          etitle={'discounters'}
+          href={'/products'} 
+          products={filteredDiscountersProducts} 
+          isLoading={isGettingDiscounters}
+          name="discounters-products-slider"
         />
+
 
         <div className="w-full grid grid-cols-1 gap-5 px-6 md:grid-cols-2">
           <div className="w-full rounded-2xl overflow-hidden shadow-2xl">
@@ -60,6 +62,15 @@ export default function Home() {
           </div>
         </div>
 
+
+        <ProductsSlider 
+          title={'جدیدترین محصولات'} 
+          etitle={'discounters'}
+          href={'/products?sort=latest'} 
+          products={latestProducts} 
+          isLoading={isGettingLatest}
+          name="latest-products-slider"
+        />
 
 
         <div className="w-full pt-8 grid grid-cols-1 gap-5 px-6 md:grid-cols-2 lg:grid-cols-3">
@@ -96,26 +107,28 @@ export default function Home() {
         </div>
 
 
-        {/* <ProductsSlider 
-            title={'تخفیف دار ها'} 
-            etitle={'discounters'}
-            href={'/products'} 
-            products={filteredDiscountersProducts} 
-            isLoading={isGettingDiscounters}
-            name="discounters-products-slider"
-          />
+        <ProductsSlider
+          title={'جدیدترین موبایل ها'}
+          etitle={'latest mobiles'}
+          href={'/products?sort=latest&category=mobile'}
+          products={latestMobileProducts}
+          isLoading={isGettingLatestMobile}
+          name="cate-mobile-slider"
+        />
 
-
-          <ProductsSlider 
-            title={'جدیدترین لپ تاپ ها'} 
-            etitle={'latest laptop'}
-            href={'/products'} 
-            products={latestLaptopProducts} 
-            isLoading={isGettingLatestLaptop}
-            name="latest-laptop-products-slider"
-          /> */}
 
         <BrandSlider />
+
+
+        <ProductsSlider 
+          title={'جدیدترین لپ تاپ ها'} 
+          etitle={'latest laptop'}
+          href={'/products?sort=latest&category=laptop'} 
+          products={latestLaptopProducts} 
+          isLoading={isGettingLatestLaptop}
+          name="latest-laptop-products-slider"
+        />
+
 
         <WeblogsBox title={'جدیدترین مطالب'} etitle={'latest weblogs'} />
 

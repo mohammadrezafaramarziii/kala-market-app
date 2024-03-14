@@ -13,12 +13,12 @@ export const metadata = {
   description: "فروشگاه اینترنتی کالا مارکت",
 };
 
-export default function RootLayout({children}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body className={`${kalamehFont.variable} relative font-sans max-w-[1440px] mx-auto pb-[80px] lg:pb-0`}>
-        <Toaster 
-          position="bottom-left"
+        <Toaster
+          position="top-right"
           reverseOrder={false}
         />
         <Provideres>
@@ -26,7 +26,7 @@ export default function RootLayout({children}) {
           <Navbar />
           <Category />
           <BottomMenu />
-            {children}
+          {children}
           <Footer />
         </Provideres>
       </body>

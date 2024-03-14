@@ -36,7 +36,7 @@ export const useGetLatestMobiles = () =>
 export const useGetLatestLaptop = () =>
   useQuery({
     queryKey: ["get-latest-laptop-products"],
-    queryFn: (filter) => getProducts("sort=latest&category=labtop"),
+    queryFn: (filter) => getProducts("sort=latest&category=laptop"),
     retry: false,
     refetchOnWindowFocus: true,
   });

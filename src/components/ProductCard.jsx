@@ -13,6 +13,7 @@ import ToastError from "@/common/toasts/ToastError";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
 import { useAddToCart } from "@/hooks/useCart";
 import LikeProduct from "./LikeProduct";
+import { useEffect, useState } from "react";
 
 
 export default function ProductCard({ product, className, classNamePriceBox, isLoading, notShowHome }) {
@@ -20,6 +21,7 @@ export default function ProductCard({ product, className, classNamePriceBox, isL
     const { user } = data || {};
     const { isPending, mutateAsync: mutateAddToCart } = useAddToCart();
     const queryClient = useQueryClient();
+    const [rednering, setRendring] = useState(true);
 
     const addToCartHandler = async () => {
         if (!user) {
@@ -42,6 +44,10 @@ export default function ProductCard({ product, className, classNamePriceBox, isL
         return isProduct;
     }
 
+    useEffect(() => {
+        setRendring(false);
+    }, [])
+
     return (
         <div className={`w-full ${className} shadow-custome relative duration-200 bg-white rounded-xl overflow-hidden p-6`}>
             <div className={`w-full h-full flex flex-col gap-4`}>
@@ -56,7 +62,7 @@ export default function ProductCard({ product, className, classNamePriceBox, isL
                 {!notShowHome && <LikeProduct product={product} />}
 
                 {
-                    product.imageLink ?
+                    product.imageLink && !rednering ?
                         <Link href={`/products/${product.slug}`} className="w-full aspect-square">
                             <Image
                                 src={`/images/${product.imageLink}`}
