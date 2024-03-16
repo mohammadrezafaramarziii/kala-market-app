@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/common/loading/Loading";
-import TitleBar from "@/components/profileComponent/TitleBar";
+import TitlebarAdmin from "@/components/adminComponent/TitlebarAdmin";
 import { useGetUser } from "@/hooks/useAuth";
 import { useGetPaymentById } from "@/hooks/usePayments";
 import { numberWithCommas } from "@/utils/numberWithCommas";
@@ -26,7 +26,7 @@ export default function PaymentDetail() {
 
     return (
         <div className="w-full max-[1024px]:min-h-screen">
-            <TitleBar title={'جزئیات سفارش'} />
+            <TitlebarAdmin title={'جزئیات سفارش'} />
 
             <div className="mt-6">
 
