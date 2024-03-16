@@ -36,7 +36,6 @@ export default function PaidProductsPage() {
 
     return (
         <>
-            <div></div>
             {
                 paidProducts.length > 0 ?
 
