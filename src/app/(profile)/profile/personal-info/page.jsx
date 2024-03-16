@@ -12,7 +12,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOtp, updateProfile } from "@/services/authService";
 import ToastSuccess from "@/common/toasts/ToastSuccess";
 import ToastError from "@/common/toasts/ToastError";
-import TitleBar from "../../../components/profileComponent/TitleBar";
 import Box from "@/components/profileComponent/Box";
 import { toPersianDate } from "@/utils/toPersianDate";
 
@@ -104,7 +103,6 @@ export default function PersonalInfoPage() {
 
     return (
         <div>
-            <TitleBar title={'اطلاعات کاربری'} />
 
             <div className="mt-8">
                 <Box title={'ویرایش اطلاعات کاربری'}>

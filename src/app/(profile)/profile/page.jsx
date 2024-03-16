@@ -11,7 +11,6 @@ import Image from "next/image";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import Box from "@/components/profileComponent/Box";
 import { useGetProducts } from "@/hooks/useProducts";
-import TitleBar from "../../../components/profileComponent/TitleBar";
 
 export default function HomeProfile() {
     const { data, isPending } = useGetUser();
@@ -46,7 +45,6 @@ export default function HomeProfile() {
 
     return (
         <div>
-            <TitleBar title={'داشبورد'} />
 
             {/* welcome message */}
             <div className="py-4 lg:py-6 sm:flex items-center justify-between">

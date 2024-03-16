@@ -1,6 +1,5 @@
 "use client"
 import Loading from "@/common/loading/Loading";
-import TitleBar from "../../../../components/profileComponent/TitleBar";
 import { useGetUser } from "@/hooks/useAuth";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { toPersianDate } from "@/utils/toPersianDate";
@@ -23,7 +22,6 @@ export default function PaymentDetail({ params }) {
 
     return (
         <div className="w-full max-[1024px]:min-h-screen">
-            <TitleBar title={'جزئیات سفارش'} />
 
             <div className="mt-6">
 

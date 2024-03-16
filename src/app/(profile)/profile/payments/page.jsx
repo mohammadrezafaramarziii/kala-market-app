@@ -3,7 +3,6 @@ import Loading from "@/common/loading/Loading";
 import { userPaymentsTHeads } from "@/constants/tableHeads";
 import { useGetUser } from "@/hooks/useAuth";
 import { toPersianDate } from "@/utils/toPersianDate";
-import TitleBar from "../../../components/profileComponent/TitleBar";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import Image from "next/image";
@@ -54,7 +53,6 @@ export default function PaymentsPage() {
 
     return (
         <>
-            <TitleBar title={'سفارشات'} />
 
             {
                 payments.length > 0 ?
