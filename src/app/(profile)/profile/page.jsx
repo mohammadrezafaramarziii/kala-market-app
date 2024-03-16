@@ -1,18 +1,17 @@
 "use client"
-import { ArrowRightIcon, BoxIcon, CartIcon, HeartIcon, ListIcon, OrderBagIcon, OrderIcon, WaitForPaidIcon } from "@/common/Icons";
+import { BoxIcon, ListIcon, WaitForPaidIcon } from "@/common/Icons";
 import { useGetUser } from "@/hooks/useAuth";
 import { toPersianDigit } from "@/utils/toPersianDigit";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import Loading from "@/common/loading/Loading";
-import TitleBar from "@/components/profileComponent/TitleBar";
 import { toPersianDate } from "@/utils/toPersianDate";
 import Image from "next/image";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import Box from "@/components/profileComponent/Box";
 import { useGetProducts } from "@/hooks/useProducts";
+import TitleBar from "../../../components/profileComponent/TitleBar";
 
 export default function HomeProfile() {
     const { data, isPending } = useGetUser();

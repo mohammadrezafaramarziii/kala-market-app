@@ -1,7 +1,7 @@
 "use client"
 import Loading from "@/common/loading/Loading";
-import TitleBar from "@/components/profileComponent/TitleBar";
-import { useGetAllUser, useGetUser } from "@/hooks/useAuth";
+import TitleBar from "../../../../components/profileComponent/TitleBar";
+import { useGetUser } from "@/hooks/useAuth";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { toPersianDate } from "@/utils/toPersianDate";
 import { toPersianDigit } from "@/utils/toPersianDigit";
