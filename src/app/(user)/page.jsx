@@ -26,7 +26,7 @@ export default function Home() {
 
       <div className="space-y-8 lg:space-y-12 xl:max-w-6xl mx-auto">
 
-        <BanerSlider />
+        {/* <BanerSlider /> */}
 
 
         <ProductsSlider
