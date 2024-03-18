@@ -14,7 +14,7 @@ import ToastSuccess from "@/common/toasts/ToastSuccess";
 import ToastError from "@/common/toasts/ToastError";
 import Box from "@/components/profileComponent/Box";
 import { toPersianDate } from "@/utils/toPersianDate";
-import TitleBar from "@/components/profileComponent/TitleBar";
+import TitleBarProfile from "@/components/profileComponent/TitleBarProfile";
 
 
 const initialValues = {
@@ -104,7 +104,7 @@ export default function PersonalInfoPage() {
 
     return (
         <div>
-            <TitleBar title={'اطلاعات کاربری'}/>
+            <TitleBarProfile title={'اطلاعات کاربری'}/>
             <div className="mt-8">
                 <Box title={'ویرایش اطلاعات کاربری'}>
                     <div className="w-full grid grid-cols-1 gap-4 sm:grid-cols-2">

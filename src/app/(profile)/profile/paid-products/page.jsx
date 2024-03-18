@@ -1,6 +1,6 @@
 "use client"
 import Loading from "@/common/loading/Loading";
-import TitleBar from "@/components/profileComponent/TitleBar";
+import TitleBarProfile from "@/components/profileComponent/TitleBarProfile";
 import { useGetUser } from "@/hooks/useAuth";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import { toPersianDigit } from "@/utils/toPersianDigit";
@@ -37,7 +37,7 @@ export default function PaidProductsPage() {
 
     return (
         <>
-            <TitleBar title={'خرید های پرتکرار'}/>
+            <TitleBarProfile title={'خرید های پرتکرار'}/>
             {
                 paidProducts.length > 0 ?
 

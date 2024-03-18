@@ -7,7 +7,7 @@ import { toPersianDigit } from "@/utils/toPersianDigit";
 import { numberWithCommas } from "@/utils/numberWithCommas";
 import Image from "next/image";
 import Link from "next/link";
-import TitleBar from "@/components/profileComponent/TitleBar";
+import TitleBarProfile from "@/components/profileComponent/TitleBarProfile";
 
 export default function PaymentsPage() {
     const { data, isPending } = useGetUser();
@@ -54,7 +54,7 @@ export default function PaymentsPage() {
 
     return (
         <>
-            <TitleBar title={'سفارشات'}/>
+            <TitleBarProfile title={'سفارشات'}/>
             {
                 payments.length > 0 ?
 
