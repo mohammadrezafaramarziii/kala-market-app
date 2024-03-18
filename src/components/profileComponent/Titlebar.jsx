@@ -1,13 +1,13 @@
 "use client"
-import { HomeIcon, MenuIcon, SearchIcon } from "@/common/Icons";
-import Sidebar from "./Sidebar";
 import { useState } from "react";
+import Sidebar from "./Sidebar";
+import { HomeIcon, MenuIcon, SearchIcon } from "@/common/Icons";
 import Link from "next/link";
 
-export default function TitleBar({ title }) {
+export default function TitleBar({title}){
     const [showSidebar, setShowSidebar] = useState(false);
 
-    return (
+    return(
         <>
             <div className="lg:hidden">
                 <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
