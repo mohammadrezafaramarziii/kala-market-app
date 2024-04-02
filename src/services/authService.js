@@ -5,11 +5,11 @@ export function getOtp(data){
 }
 
 export function checkOtp(data){
-    return  http.post("/user/check-otp", data).then(({data}) => data.data)
+    return  http.post("/user/check-otp", data, {withCredentials:true}).then(({data}) => data.data)
 }
 
 export function completeProfile(data){
-    return  http.post("/user/complete-profile", data).then(({data}) => data.data)
+    return  http.post("/user/complete-profile", data, {withCredentials:true}).then(({data}) => data.data)
 }
 
 export function getUserProfile(){
