@@ -27,9 +27,9 @@ export default function Modal({ show, onClose, title, children, modalName }) {
 
     return (
         <>
-            <div onClick={onClose} className={`${show ? "block" : "hidden"} w-full h-full fixed top-0 right-0 bg-slate-900/30 backdrop-blur-sm z-[999999]`}></div>
+            <div onClick={onClose} className={`${show ? "block" : "hidden"} w-full h-full fixed top-0 right-0 bg-slate-900/30 backdrop-blur-sm z-[99999]`}></div>
 
-            <div ref={modalRef} id={modalName} className={`translate-y-full lg:opacity-0 hidden duration-300 h-auto ease-in-out lg:right-1/2 lg:top-1/2 lg:bottom-auto lg:!-translate-y-1/2 lg:translate-x-1/2 w-full lg:w-[450px] bg-white fixed bottom-0 right-0 rounded-t-xl lg:rounded-xl lg:shadow-md z-[9999999]`}>
+            <div ref={modalRef} id={modalName} className={`translate-y-full lg:opacity-0 hidden duration-300 h-auto ease-in-out lg:right-1/2 lg:top-1/2 lg:bottom-auto lg:!-translate-y-1/2 lg:translate-x-1/2 w-full lg:w-[450px] bg-white fixed bottom-0 right-0 rounded-t-xl lg:rounded-xl lg:shadow-md z-[99999999]`}>
 
                 <div className="w-full h-full p-6">
                     <div className="w-full flex items-center justify-between border-b border-slate-200 pb-4">

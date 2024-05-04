@@ -114,7 +114,7 @@ export default function PaidProductsPage() {
                     :
                     <div className="w-full h-[calc(100vh-6.1rem)] lg:h-[calc(100%-73px)] flex flex-col gap-3 items-center justify-center">
                         <Image
-                            src={'/images/orderEmpty.png'}
+                            src={'/images/nonProduct.png'}
                             alt="orderEmpty"
                             width={1000}
                             height={1000}
@@ -122,7 +122,7 @@ export default function PaidProductsPage() {
                             className="w-[60px] lg:w-[80px]"
                         />
                         <div className="text-secondary-800 text-sm">
-                            شما هیچ سفارشی نداشته اید
+                            شما هیچ کالایی خریداری نکرده اید
                         </div>
                     </div>
             }
