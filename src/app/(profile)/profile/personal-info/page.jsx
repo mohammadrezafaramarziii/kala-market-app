@@ -78,17 +78,18 @@ export default function PersonalInfoPage() {
     const getOtpPhoneNumberHandler = async () => {
         try {
             const res = await mutateSendOtp({ phoneNumber: user.phoneNumber });
-        } catch (error) {
-            if (error?.response?.data?.statusCode === 403 && error?.response?.data?.message === "کد اعتبارسنجی ارسال نشد") {
+            if(res){
                 setShowPhoneNumberModal(true);
             }
+        } catch (error) {
+            ToastError(error?.response?.data?.message);
         }
     }
 
     useEffect(() => {
         if (!isPending) {
             for (let i in userObj) {
-                formik.setFieldValue(userObj[i].label, user[userObj[i].label]);
+                formik.setFieldValue(userObj[i].label, user[userObj[i].label] || "");
             }
         }
     }, [data, user])

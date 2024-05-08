@@ -35,15 +35,15 @@ export default function AuthPage(){
             const data = await mutateSendOtp({ 
                 phoneNumber: formikPhoneNumber.values.phoneNumber
             });
-            
-        } catch (error) {
-            if(error.response.data.message === "کد اعتبارسنجی ارسال نشد"  &&error.response.data.statusCode === 403){
+
+            if(data) {
                 setStep(2);
                 setTime(RESET_TIME);
                 setOtp("");
-            } else {
-                formikPhoneNumber.setFieldError("phoneNumber", error?.response?.data?.message);
             }
+            
+        } catch (error) {
+            formikPhoneNumber.setFieldError("phoneNumber", error?.response?.data?.message);
         }
     }
 
