@@ -93,7 +93,7 @@ export default function Sidebar({ show, onClose }) {
                                 />
                                 :
                                 <span className="text-sm text-secondary-800 font-bold">
-                                    {toPersianDigit(numberWithCommas(!isPending && cart?.payDetail?.totalPrice))}
+                                    {toPersianDigit(numberWithCommas(cart?.payDetail?.totalPrice || 0))}
                                 </span>
                         }
                         <span className="text-[10px] text-secondary-400">
